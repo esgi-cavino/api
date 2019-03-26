@@ -35,4 +35,46 @@ router.get('/', (req, res) => {
     });
 });
 
+// Gets a single User from the database
+router.get("/:id", (req, res) => {
+    User.findById(req.params.id, (err, user) => {
+        if(err){
+            return(res.status(500).send("There was a problem finding the user."));
+        }
+        if(!user){
+            return(res.status(404).send("No user found."));
+        }else{
+            res.status(200).send(user);
+        }
+    });
+});
+
+// Deletes a User from the database
+router.delete("/:id", (req, res) => {
+    User.findByIdAndRemove(req.params.id, (err, user) => {
+        if(err){
+            return(res.status(500).send("There was a problem deleting the user."))
+        }
+        if(!user){
+            return(res.status(404).send("User not found."));
+        }else{
+            res.status(200).send("User " + user.name + " was deleted.");
+        }
+    });
+});
+
+// Updates a single User in the database
+router.post("/:id", (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
+        if(err){
+            return(res.status(500).send("There was a problem updating the user."));
+        }
+        if(!user){
+            return(res.status(404).send("User not found."));
+        }else{
+            res.status(200).send(user);
+        }
+    });
+});
+
 module.exports = router;
