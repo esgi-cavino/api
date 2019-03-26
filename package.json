@@ -4,7 +4,16 @@
   "description": "Create a simple API from tuto :\r https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "./node_modules/.bin/pm2 start pm2.yml",
+    "start-prod": "./node_modules/.bin/pm2 start dist/pm2.yml",
+    "start": "node src",
+    "stop": "./node_modules/.bin/pm2 delete pm2.yml",
+    "stop-prod": "./node_modules/.bin/pm2 delete dist/pm2.yml",
+    "logs": "./node_modules/.bin/pm2 logs",
+    "test-unit": "./node_modules/.bin/cross-env BABEL_CACHE_PATH=./node_modules/.babel_cache ./node_modules/.bin/mocha 'src/**/*.spec.js' --require babel-register",
+    "test-unit-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc npm run test-unit",
+    "test-lint": "./node_modules/.bin/eslint './src/**'",
+    "test": "npm run test-lint && npm run test-unit-with-coverage"
   },
   "repository": {
     "type": "git",
@@ -16,9 +25,40 @@
     "url": "https://github.com/esgi-cavino/api/issues"
   },
   "homepage": "https://github.com/esgi-cavino/api#readme",
+  "devDependencies": {
+    "ajv": "^5.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^5.1.1",
+    "babel-preset-node6": "^11.0.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.3.0",
+    "sequelize-mock": "^0.10.2",
+    "sequelize-test-helpers": "^1.0.6",
+    "sinon": "^6.0.0",
+    "sinon-chai": "^3.2.0"
+  },
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel-register": "^6.26.0",
+    "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "mongoose": "^5.4.20"
+    "config": "^1.30.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.2",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.4.3",
+    "pm2": "^2.10.4",
+    "sequelize": "^4.38.0"
   }
 }
