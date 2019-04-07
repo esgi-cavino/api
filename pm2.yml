@@ -1,6 +1,6 @@
 apps:
-  - script: ./src/server.js
-    name: cavino-api
+  - script: ./src/index.js
+    name: esgi-cavino
     env:
       BABEL_CACHE_PATH: ./node_modules/.babel_cache
     watch:
