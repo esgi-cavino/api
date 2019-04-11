@@ -6,7 +6,7 @@
   "scripts": {
     "start-dev": "./node_modules/.bin/pm2 start pm2.yml",
     "start-prod": "./node_modules/.bin/pm2 start dist/pm2.yml",
-    "start": "node src",
+    "start": "./node_modules/.bin/pm2 start dist/pm2.yml",
     "stop": "./node_modules/.bin/pm2 delete pm2.yml",
     "stop-prod": "./node_modules/.bin/pm2 delete dist/pm2.yml",
     "logs": "./node_modules/.bin/pm2 logs",
