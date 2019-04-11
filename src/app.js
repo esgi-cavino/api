@@ -1,4 +1,3 @@
-import config from 'config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
@@ -10,7 +9,9 @@ import apiRouter from './api';
 import db from './db';
 import User from './models';
 
-const PORT = process.env.PORT || config.get('port') || 8080;
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000;
 
 // Database connection
 db.authenticate()
@@ -33,7 +34,7 @@ app.use(morgan('combined', { stream: fs.createWriteStream('./logs/access.log', {
 passport.use('auth-rule', new JWTStrategy(
   {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.get('jwt_secret'),
+    secretOrKey: process.env.jwt_secret,
   },
   ((jwtPayload, done) => {
     User.findOne({ where: { uuid: jwtPayload.userUUID } }).then((user, err) => {

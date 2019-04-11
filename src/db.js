@@ -1,12 +1,14 @@
 import Sequelize from 'sequelize';
 
+require('dotenv').config();
+
 const DATABASE = process.env.database;
-const USERNAME = process.env.username;
-const PASSWORD = process.env.password;
+const USERNAME = process.env.dbUsername;
+const PASSWORD = process.env.dbPassword;
 const HOST = process.env.host;
 
-const db = new Sequelize('hcpzjwnq', 'hcpzjwnq', 'sdXlcCI3bFqlBjMb5zZ6SIKOtA35z_Wa', {
-  host: 'manny.db.elephantsql.com',
+const db = new Sequelize(DATABASE, USERNAME, PASSWORD, {
+  host: HOST,
   dialect: 'postgres',
   operatorsAliases: false,
 
