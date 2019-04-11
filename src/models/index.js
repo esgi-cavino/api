@@ -1,5 +1,5 @@
 import User from './user/user';
 
-export { User };
+export default User;
 
 // User.sync({ force: true });

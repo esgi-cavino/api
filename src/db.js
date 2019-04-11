@@ -18,4 +18,4 @@ const db = new Sequelize('hcpzjwnq', 'hcpzjwnq', 'sdXlcCI3bFqlBjMb5zZ6SIKOtA35z_
   },
 });
 
-module.exports = db;
+export default db;

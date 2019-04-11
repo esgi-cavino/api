@@ -16,7 +16,7 @@ router.use(authRouter);
 router.use(userRouter);
 
 // Authenticated request
-// router.use(passport.authorize('auth-rule', { session: false }));
+router.use(passport.authorize('auth-rule', { session: false }));
 router.use(userAuthRouter);
 
 export default router;
