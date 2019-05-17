@@ -35,7 +35,7 @@
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",
     "sequelize-mock": "^0.10.2",
-    "sequelize-test-helpers": "^1.0.6",
+    "sequelize-test-helpers": "^1.1.1",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.2.0"
   },
