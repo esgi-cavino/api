@@ -8,6 +8,7 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import apiRouter from './api';
 import db from './db';
 import { User } from './models';
+import feed from './feeder';
 
 require('dotenv').config();
 
@@ -48,6 +49,12 @@ passport.use('auth-rule', new JWTStrategy(
 app.use(passport.initialize());
 
 app.use('/api', apiRouter);
+
+if (process.env.feed == 'true') {
+  feed().then(() => {
+    console.log('Database populated with some datas');
+  });
+}
 
 app.listen(PORT);
 console.log(`app listen on port :${PORT}`);
