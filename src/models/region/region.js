@@ -1,9 +1,8 @@
 import Sequelize from 'sequelize';
 import db from '../../db';
 
-const model = db.define('cellar', {
+const model = db.define('region', {
   name: { type: Sequelize.STRING, allowNull: false, unique: true },
-  userUUID: { type: Sequelize.UUID, allowNull: false },
 });
 
 const Cellar = model;
