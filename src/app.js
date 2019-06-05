@@ -7,7 +7,7 @@ import passport from 'passport';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import apiRouter from './api';
 import db from './db';
-import User from './models';
+import { User } from './models';
 
 require('dotenv').config();
 

@@ -1,5 +1,12 @@
 import User from './user/user';
+import Cellar from './cellar/cellar';
 
-export default User;
+require('dotenv').config();
 
-// User.sync({ force: true });
+if (process.env.syncModels === 'true') {
+  User.sync({ force: true });
+  Cellar.sync({ force: true });
+}
+
+export { User, Cellar };
+

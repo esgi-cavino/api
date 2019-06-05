@@ -1,20 +1,19 @@
-import { User } from '../../models';
+import { Cellar } from '../../models';
 
-class UserService {
+class CellarService {
   constructor(collectionName) {
     this.COLLECTION_NAME = collectionName;
   }
 
   async create(data) {
-    return User.create(data).then((res, err) => {
+    return Cellar.create(data).then((res, err) => {
       if (err) throw err;
       return res;
     });
   }
 
   async getAll(offset = 20, limit = 0) {
-    return User.findAll({
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt'],
+    return Cellar.findAll({
       offset,
       limit,
     }).then((res, err) => {
@@ -23,20 +22,19 @@ class UserService {
     });
   }
 
-  async findOne(uuid) {
-    return User.findOne({
-      where: { uuid },
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt'],
+  async findOne(id) {
+    return Cellar.findOne({
+      where: { id },
     }).then((res, err) => {
       if (err) throw err;
       return res;
     });
   }
 
-  async updateOne(uuid, data) {
-    return User.update(data, {
+  async updateOne(id, data) {
+    return Cellar.update(data, {
       where: {
-        uuid,
+        id,
       },
     }).then((res, err) => {
       if (err) throw err;
@@ -44,10 +42,10 @@ class UserService {
     });
   }
 
-  async deleteOne(uuid) {
-    return User.destroy({
+  async deleteOne(id) {
+    return Cellar.destroy({
       where: {
-        uuid,
+        id,
       },
     }).then((res, err) => {
       if (err) throw err;
@@ -59,4 +57,4 @@ class UserService {
   }
 }
 
-export default new UserService('user');
+export default new CellarService('cellar');
