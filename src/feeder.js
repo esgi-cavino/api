@@ -70,6 +70,10 @@ const createWineTypes = async () => {
   await wineTypeService.create({
     name: 'Blanc',
   });
+
+  await wineTypeService.create({
+    name: 'Rosé',
+  });
 };
 
 const createRegions = async () => {
