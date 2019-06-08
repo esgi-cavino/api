@@ -1,6 +1,7 @@
 import { User } from '../../models';
 import { FavouriteRegion } from '../../models';
 import { Region } from '../../models';
+import { WineType } from '../../models';
 
 class UserService {
   constructor(collectionName) {
@@ -72,6 +73,21 @@ class UserService {
     }).then((res, err) => {
       if (err) throw err;
       return res[0].regions;
+    });
+  }
+
+  async getFavouriteWine(uuid) {
+    return User.findAll({
+      include: [{
+        model: WineType,
+        through: {
+          attributes: [],
+          where: { userUUID: uuid },
+        },
+      }],
+    }).then((res, err) => {
+      if (err) throw err;
+      return res[0].wineTypes;
     });
   }
 }

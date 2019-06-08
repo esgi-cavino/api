@@ -5,12 +5,14 @@ import cellarService from './modules/cellar/services';
 import wineTypeService from './modules/wineType/services';
 import regionService from './modules/region/services';
 import favouriteRegionService from './modules/favouriteRegion/services';
+import favouriteWineService from './modules/favouriteWine/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
 import WineType from './models/wineType/wineType';
 import Region from './models/region/region';
 import FavouriteRegion from './models/favouriteRegion/favouriteRegion';
+import FavouriteWine from './models/favouriteWine/favouriteWine';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
@@ -130,7 +132,6 @@ const createRegions = async () => {
   });
 };
 
-
 const createFavouriteRegions = async () => {
   let userUuid;
   User.findOne({ where: { email: userEmail } }).then((user) => {
@@ -151,10 +152,32 @@ const createFavouriteRegions = async () => {
   });
 };
 
+
+const createFavouriteWines = async () => {
+  let userUuid;
+  User.findOne({ where: { email: userEmail } }).then((user) => {
+    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
+      userUuid = user.uuid;
+    }
+  });
+  let wineTypeId = '';
+  WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
+    wineTypeId = wineType.id;
+  });
+
+  await FavouriteWine.sync({ force: true });
+
+  await favouriteWineService.create({
+    userUUID: userUuid,
+    wineTypeId,
+  });
+};
+
 export default async () => {
   await createUsers();
   await createCellars();
   await createWineTypes();
   await createRegions();
   await createFavouriteRegions();
+  await createFavouriteWines();
 };

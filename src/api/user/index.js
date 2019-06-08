@@ -11,6 +11,9 @@ import deleteCellar from '../cellar/middlewares/deleteOne';
 import getFavouriteRegions from './middlewares/getFavouriteRegions';
 import createFavouriteRegion from '../favouriteRegion/middlewares/create';
 import removeFavouriteRegion from '../favouriteRegion/middlewares/removeFavouriteRegion';
+import getFavouriteWines from './middlewares/getFavouriteWines';
+import createFavouriteWine from '../favouriteWine/middlewares/create';
+import removeFavouriteWine from '../favouriteWine/middlewares/removeFavouriteWine';
 
 const userRouter = Router();
 const userAuthRouter = Router();
@@ -27,6 +30,10 @@ userAuthRouter.delete('/user/removeCellar/:id', deleteCellar);
 
 userAuthRouter.get('/user/favouriteRegions/:uuid', getFavouriteRegions);
 userAuthRouter.post('/user/newFavouriteRegion', createFavouriteRegion);
-userAuthRouter.delete('/user/removeFavouriteRegion/:uuid', removeFavouriteRegion);
+userAuthRouter.delete('/user/removeFavouriteRegion/:uuid/:id', removeFavouriteRegion);
+
+userAuthRouter.get('/user/favouriteWines/:uuid', getFavouriteWines);
+userAuthRouter.post('/user/newFavouriteWine', createFavouriteWine);
+userAuthRouter.delete('/user/removeFavouriteWine/:uuid/:id', removeFavouriteWine);
 
 export { userRouter, userAuthRouter };
