@@ -1,19 +1,19 @@
-import { Cellar } from '../../models';
+import { FavouriteRegion } from '../../models';
 
-class CellarService {
+class FavouriteRegionService {
   constructor(collectionName) {
     this.COLLECTION_NAME = collectionName;
   }
 
   async create(data) {
-    return Cellar.create(data).then((res, err) => {
+    return FavouriteRegion.create(data).then((res, err) => {
       if (err) throw err;
       return res;
     });
   }
 
   async getAll(offset = 20, limit = 0) {
-    return Cellar.findAll({
+    return FavouriteRegion.findAll({
       offset,
       limit,
     }).then((res, err) => {
@@ -23,7 +23,7 @@ class CellarService {
   }
 
   async findOne(id) {
-    return Cellar.findOne({
+    return FavouriteRegion.findOne({
       where: { id },
     }).then((res, err) => {
       if (err) throw err;
@@ -32,7 +32,7 @@ class CellarService {
   }
 
   async updateOne(id, data) {
-    return Cellar.update(data, {
+    return FavouriteRegion.update(data, {
       where: {
         id,
       },
@@ -43,7 +43,7 @@ class CellarService {
   }
 
   async deleteOne(id) {
-    return Cellar.destroy({
+    return FavouriteRegion.destroy({
       where: {
         id,
       },
@@ -56,14 +56,20 @@ class CellarService {
     });
   }
 
-  async findByUserUUID(userUUID) {
-    return Cellar.findAll({
-      where: { userUUID },
+  async removeFavouriteRegion(uuid, id) {
+    return FavouriteRegion.destroy({
+      where: {
+        userUUID: uuid,
+        regionId: id,
+      },
     }).then((res, err) => {
       if (err) throw err;
-      return res;
+      if (res > 0) {
+        return 200;
+      }
+      return (404);
     });
   }
 }
 
-export default new CellarService('cellar');
+export default new FavouriteRegionService('favouriteRegion');

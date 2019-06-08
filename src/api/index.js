@@ -6,6 +6,7 @@ import { userRouter, userAuthRouter } from './user';
 import { cellarRouter, cellarAuthRouter } from './cellar';
 import { regionRouter, regionAuthRouter } from './region';
 import { wineTypeRouter, wineTypeAuthRouter } from './wineType';
+import { favouriteRegionRouter, favouriteRegionAuthRouter } from './favouriteRegion';
 import setCORSHeaders from './middleware/setCORSHeaders';
 
 const router = Router();
@@ -20,6 +21,7 @@ router.use(userRouter);
 router.use(cellarRouter);
 router.use(wineTypeRouter);
 router.use(regionRouter);
+router.use(favouriteRegionRouter);
 
 // Authenticated request
 router.use(passport.authorize('auth-rule', { session: false }));
@@ -27,5 +29,6 @@ router.use(userAuthRouter);
 router.use(cellarAuthRouter);
 router.use(wineTypeAuthRouter);
 router.use(regionAuthRouter);
+router.use(favouriteRegionAuthRouter);
 
 export default router;

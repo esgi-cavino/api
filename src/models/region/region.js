@@ -2,9 +2,13 @@ import Sequelize from 'sequelize';
 import db from '../../db';
 
 const model = db.define('region', {
-  name: { type: Sequelize.STRING, allowNull: false, unique: true },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
 });
 
-const Cellar = model;
+const Region = model;
 
-export default Cellar;
+export default Region;

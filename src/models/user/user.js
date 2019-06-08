@@ -7,6 +7,7 @@ const model = db.define('user', {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
     unique: true,
+    primaryKey: true,
   },
   firstname: { type: Sequelize.STRING, allowNull: false },
   lastname: { type: Sequelize.STRING, allowNull: false },
@@ -21,6 +22,10 @@ const model = db.define('user', {
       notEmpty: true, // don't allow empty string
     },
   },
+  age: { type: Sequelize.INTEGER },
+  address: { type: Sequelize.STRING },
+  isSeller: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
+  isAdmin: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
 }, {
   hooks: {
     beforeCreate: (user) => {

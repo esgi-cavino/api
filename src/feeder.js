@@ -4,17 +4,39 @@ import userService from './modules/user/services';
 import cellarService from './modules/cellar/services';
 import wineTypeService from './modules/wineType/services';
 import regionService from './modules/region/services';
+import favouriteRegionService from './modules/favouriteRegion/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
 import WineType from './models/wineType/wineType';
 import Region from './models/region/region';
+import FavouriteRegion from './models/favouriteRegion/favouriteRegion';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
 
 const createUsers = async () => {
   await User.sync({ force: true });
+
+  await userService.create({
+    firstname: 'Admin',
+    lastname: 'Istrator',
+    email: 'admin@cavino.fr',
+    password: 'admin',
+    age: 45,
+    address: 'Paris (France)',
+    isAdmin: true,
+  });
+
+  await userService.create({
+    firstname: 'Seller',
+    lastname: 'Man',
+    email: 'seller@corporation.com',
+    password: 'seller',
+    age: 34,
+    address: '47 private road, NY City (USA)',
+    isSeller: true,
+  });
 
   await userService.create({
     firstname: 'firstname',
@@ -41,22 +63,14 @@ const createCellars = async () => {
 };
 
 const createWineTypes = async () => {
-  let userUuid = '';
-  User.findOne({ where: { email: userEmail } }).then((user) => {
-    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
-      userUuid = user.uuid;
-    }
-  });
-
   await WineType.sync({ force: true });
 
   await wineTypeService.create({
     name: 'Blanc',
-    userUUID: userUuid,
   });
 };
 
-const createRegion = async () => {
+const createRegions = async () => {
   await Region.sync({ force: true });
 
   await regionService.create({
@@ -116,9 +130,31 @@ const createRegion = async () => {
   });
 };
 
+
+const createFavouriteRegions = async () => {
+  let userUuid;
+  User.findOne({ where: { email: userEmail } }).then((user) => {
+    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
+      userUuid = user.uuid;
+    }
+  });
+  let regionId = '';
+  Region.findOne({ offste: 0, limit: 1 }).then((region) => {
+    regionId = region.id;
+  });
+
+  await FavouriteRegion.sync({ force: true });
+
+  await favouriteRegionService.create({
+    userUUID: userUuid,
+    regionId,
+  });
+};
+
 export default async () => {
   await createUsers();
   await createCellars();
   await createWineTypes();
-  await createRegion();
+  await createRegions();
+  await createFavouriteRegions();
 };

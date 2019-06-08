@@ -1,4 +1,6 @@
 import { User } from '../../models';
+import { FavouriteRegion } from '../../models';
+import { Region } from '../../models';
 
 class UserService {
   constructor(collectionName) {
@@ -55,6 +57,21 @@ class UserService {
         return 200;
       }
       return (404);
+    });
+  }
+
+  async getFavouriteRegions(uuid) {
+    return User.findAll({
+      include: [{
+        model: Region,
+        through: {
+          attributes: [],
+          where: { userUUID: uuid },
+        },
+      }],
+    }).then((res, err) => {
+      if (err) throw err;
+      return res[0].regions;
     });
   }
 }
