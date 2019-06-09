@@ -10,7 +10,8 @@ const HOST = process.env.host;
 const db = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   host: HOST,
   dialect: 'postgres',
-  operatorsAliases: false,
+  /*  Deprecated -> operatorsAliases */
+  // operatorsAliases: false,
 
   pool: {
     max: 5,
