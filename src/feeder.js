@@ -6,6 +6,7 @@ import wineTypeService from './modules/wineType/services';
 import regionService from './modules/region/services';
 import favouriteRegionService from './modules/favouriteRegion/services';
 import favouriteWineService from './modules/favouriteWine/services';
+import bottleService from './modules/bottle/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -13,6 +14,7 @@ import WineType from './models/wineType/wineType';
 import Region from './models/region/region';
 import FavouriteRegion from './models/favouriteRegion/favouriteRegion';
 import FavouriteWine from './models/favouriteWine/favouriteWine';
+import Bottle from './models/bottle/bottle';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
@@ -177,6 +179,33 @@ const createFavouriteWines = async () => {
   });
 };
 
+
+const createBottles = async () => {
+  let wineTypeId = '';
+  WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
+    wineTypeId = wineType.id;
+  });
+
+  await Bottle.sync({ force: true });
+
+  await bottleService.create({
+    name: 'Bottle n°1',
+    description: 'Bottle with wine type Alsace ?',
+    price: 32.6,
+    averagePrice: 34.3,
+    isOrganic: false,
+    wineTypeId,
+  });
+
+  await bottleService.create({
+    name: 'Bottle n°2',
+    description: 'BIO Wine',
+    price: 49.99,
+    isOrganic: true,
+    wineTypeId,
+  });
+};
+
 export default async () => {
   await createUsers();
   await createCellars();
@@ -184,4 +213,5 @@ export default async () => {
   await createRegions();
   await createFavouriteRegions();
   await createFavouriteWines();
+  await createBottles();
 };
