@@ -2,13 +2,13 @@ import { Router } from 'express';
 import passport from 'passport';
 import setHeaders from './middleware/setHeaders';
 import authRouter from './auth';
-import { userRouter, userAuthRouter } from './user';
-import { cellarRouter, cellarAuthRouter } from './cellar';
-import { regionRouter, regionAuthRouter } from './region';
-import { wineTypeRouter, wineTypeAuthRouter } from './wineType';
-import { favouriteRegionRouter, favouriteRegionAuthRouter } from './favouriteRegion';
-import { favouriteWineRouter, favouriteWineAuthRouter } from './favouriteWine';
-import { bottleRouter, bottleAuthRouter } from './bottle';
+import { userRouter, userAuthRouter, userAdminRouter } from './user';
+import { cellarRouter, cellarAuthRouter, cellarAdminRouter } from './cellar';
+import { regionRouter, regionAuthRouter, regionAdminRouter } from './region';
+import { wineTypeRouter, wineTypeAuthRouter, wineTypeAdminRouter } from './wineType';
+import { favouriteRegionRouter, favouriteRegionAuthRouter, favouriteRegionAdminRouter } from './favouriteRegion';
+import { favouriteWineRouter, favouriteWineAuthRouter, favouriteWineAdminRouter } from './favouriteWine';
+import { bottleRouter, bottleAuthRouter, bottleAdminRouter } from './bottle';
 import setCORSHeaders from './middleware/setCORSHeaders';
 
 const router = Router();
@@ -36,5 +36,15 @@ router.use(regionAuthRouter);
 router.use(favouriteRegionAuthRouter);
 router.use(favouriteWineAuthRouter);
 router.use(bottleAuthRouter);
+
+// Admin request
+router.use(passport.authorize('admin-rule', { session: false }));
+router.use(userAdminRouter);
+router.use(cellarAdminRouter);
+router.use(wineTypeAdminRouter);
+router.use(regionAdminRouter);
+router.use(favouriteRegionAdminRouter);
+router.use(favouriteWineAdminRouter);
+router.use(bottleAdminRouter);
 
 export default router;

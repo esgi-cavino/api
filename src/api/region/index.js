@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const regionRouter = Router();
 const regionAuthRouter = Router();
+const regionAdminRouter = Router();
 
 const table = '/region';
 
@@ -21,4 +22,4 @@ regionAuthRouter.post(`${table}`, create);
 
 regionAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { regionRouter, regionAuthRouter };
+export { regionRouter, regionAuthRouter, regionAdminRouter };

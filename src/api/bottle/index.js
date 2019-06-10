@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const bottleRouter = Router();
 const bottleAuthRouter = Router();
+const bottleAdminRouter = Router();
 
 const table = '/bottle';
 
@@ -21,4 +22,4 @@ bottleAuthRouter.post(`${table}`, create);
 
 bottleAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { bottleRouter, bottleAuthRouter };
+export { bottleRouter, bottleAuthRouter, bottleAdminRouter };

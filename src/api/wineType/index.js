@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const wineTypeRouter = Router();
 const wineTypeAuthRouter = Router();
+const wineTypeAdminRouter = Router();
 
 const table = '/wineType';
 
@@ -21,4 +22,4 @@ wineTypeAuthRouter.post(`${table}`, create);
 
 wineTypeAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { wineTypeRouter, wineTypeAuthRouter };
+export { wineTypeRouter, wineTypeAuthRouter, wineTypeAdminRouter };

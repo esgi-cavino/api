@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const favouriteWineRouter = Router();
 const favouriteWineAuthRouter = Router();
+const favouriteWineAdminRouter = Router();
 
 const table = '/favouriteWine';
 
@@ -21,4 +22,4 @@ favouriteWineAuthRouter.post(`${table}`, create);
 
 favouriteWineAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { favouriteWineRouter, favouriteWineAuthRouter };
+export { favouriteWineRouter, favouriteWineAuthRouter, favouriteWineAdminRouter };

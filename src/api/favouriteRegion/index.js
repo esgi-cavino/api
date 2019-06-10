@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const favouriteRegionRouter = Router();
 const favouriteRegionAuthRouter = Router();
+const favouriteRegionAdminRouter = Router();
 
 const table = '/favouriteRegion';
 
@@ -21,4 +22,4 @@ favouriteRegionAuthRouter.post(`${table}`, create);
 
 favouriteRegionAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { favouriteRegionRouter, favouriteRegionAuthRouter };
+export { favouriteRegionRouter, favouriteRegionAuthRouter, favouriteRegionAdminRouter };

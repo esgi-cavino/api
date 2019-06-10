@@ -8,6 +8,7 @@ import updateOne from './middlewares/updateOne';
 
 const cellarRouter = Router();
 const cellarAuthRouter = Router();
+const cellarAdminRouter = Router();
 
 const table = '/cellar';
 
@@ -21,4 +22,4 @@ cellarAuthRouter.post(`${table}`, create);
 
 cellarAuthRouter.delete(`${table}/:id`, deleteOne);
 
-export { cellarRouter, cellarAuthRouter };
+export { cellarRouter, cellarAuthRouter, cellarAdminRouter };

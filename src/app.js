@@ -46,6 +46,22 @@ passport.use('auth-rule', new JWTStrategy(
     });
   }),
 ));
+
+passport.use('admin-rule', new JWTStrategy(
+  {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.jwt_secret,
+  },
+  ((jwtPayload, done) => {
+    User.findOne({ where: { uuid: jwtPayload.userUUID } }).then((user, err) => {
+      if (err || !user.isAdmin) {
+        return done(err, false);
+      }
+      return done(null, user);
+    });
+  }),
+));
+
 app.use(passport.initialize());
 
 app.use('/api', apiRouter);

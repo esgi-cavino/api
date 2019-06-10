@@ -17,6 +17,7 @@ import removeFavouriteWine from '../favouriteWine/middlewares/removeFavouriteWin
 
 const userRouter = Router();
 const userAuthRouter = Router();
+const userAdminRouter = Router();
 
 userRouter.get('/user', getAll);
 userAuthRouter.get('/user/:uuid', findOne);
@@ -36,4 +37,4 @@ userAuthRouter.get('/user/favouriteWines/:uuid', getFavouriteWines);
 userAuthRouter.post('/user/newFavouriteWine', createFavouriteWine);
 userAuthRouter.delete('/user/removeFavouriteWine/:uuid/:id', removeFavouriteWine);
 
-export { userRouter, userAuthRouter };
+export { userRouter, userAuthRouter, userAdminRouter };
