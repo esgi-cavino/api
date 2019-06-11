@@ -58,30 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "firstname": {
-                        "type": "string"
-                      },
-                      "lastname": {
-                        "type": "string"
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      },
-                      "uuid": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "updatedAt": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -461,6 +438,15 @@
                       },
                       "name": {
                         "type": "string"
+                      },
+                      "userUUID": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
                       }
                     }
                   }
@@ -689,6 +675,20 @@
           },
           "email": {
             "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "address": {
+            "type": "string"
+          },
+          "isSeller": {
+            "type": "boolean",
+            "default": false
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "default": false
           },
           "createdAt": {
             "type": "string"
