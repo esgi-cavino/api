@@ -3,7 +3,9 @@ language: node_js
 node_js:
   - 10.15.3
 
-script: npm build
+script: 
+    - npm build
+    - npm run test-unit-with-coverage
 
 cache:
   directories:
