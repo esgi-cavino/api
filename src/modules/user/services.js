@@ -1,7 +1,9 @@
-import { User } from '../../models';
-import { FavouriteRegion } from '../../models';
-import { Region } from '../../models';
-import { WineType } from '../../models';
+import {
+  User, FavouriteRegion, Region, WineType,
+} from '../../models';
+
+
+
 
 class UserService {
   constructor(collectionName) {
@@ -11,13 +13,25 @@ class UserService {
   async create(data) {
     return User.create(data).then((res, err) => {
       if (err) throw err;
-      return res;
+      const { uuid } = res;
+      const { firstname } = res;
+      const { lastname } = res;
+      const { email } = res;
+      const { createdAt } = res;
+      const { updatedAt } = res;
+      const { age } = res;
+      const { address } = res;
+      const { isSeller } = res;
+      const { isAdmin } = res;
+      return ({
+        uuid, firstname, lastname, email, age, address, isSeller, isAdmin, createdAt, updatedAt,
+      });
     });
   }
 
   async getAll(offset = 20, limit = 0) {
     return User.findAll({
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt'],
+      attributes: ['uuid', 'firstname', 'lastname', 'email', 'age', 'address', 'isSeller', 'isAdmin', 'createdAt', 'updatedAt'],
       offset,
       limit,
     }).then((res, err) => {
@@ -29,7 +43,7 @@ class UserService {
   async findOne(uuid) {
     return User.findOne({
       where: { uuid },
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'createdAt', 'updatedAt'],
+      attributes: ['uuid', 'firstname', 'lastname', 'email', 'age', 'address', 'isSeller', 'isAdmin', 'createdAt', 'updatedAt'],
     }).then((res, err) => {
       if (err) throw err;
       return res;
