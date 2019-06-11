@@ -5,10 +5,13 @@ import morgan from 'morgan';
 import fs from 'fs';
 import passport from 'passport';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import apiRouter from './api';
 import db from './db';
 import { User } from './models';
 import feed from './feeder';
+import swaggerDocument from './openapi.json';
 
 require('dotenv').config();
 
@@ -26,6 +29,7 @@ db.authenticate()
 const app = express();
 
 // General middlewares configuration
+app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -65,6 +69,8 @@ passport.use('admin-rule', new JWTStrategy(
 app.use(passport.initialize());
 
 app.use('/api', apiRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 if (process.env.feed == 'true') {
   feed().then(() => {

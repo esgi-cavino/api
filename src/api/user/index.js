@@ -22,7 +22,7 @@ const userAdminRouter = Router();
 userRouter.get('/user', getAll);
 userAuthRouter.get('/user/:uuid', findOne);
 userAuthRouter.patch('/user/:uuid', updateOne);
-userAuthRouter.post('/user', create);
+userAdminRouter.post('/user', create);
 userAuthRouter.delete('/user/:uuid', deleteOne);
 
 userAuthRouter.get('/user/cellars/:uuid', getCellars);
