@@ -29,7 +29,12 @@ db.authenticate()
 const app = express();
 
 // General middlewares configuration
-app.use(cors());
+if (process.env.allow_CORS === 'true') {
+  app.use(cors());
+  console.log('CORS : true');
+} else {
+  console.log('CORS : false');
+}
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -72,7 +77,7 @@ app.use('/api', apiRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-if (process.env.feed == 'true') {
+if (process.env.feed === 'true') {
   feed().then(() => {
     console.log('Database populated with some datas');
   });
