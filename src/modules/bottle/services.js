@@ -1,4 +1,4 @@
-import { Bottle } from '../../models';
+import { Bottle, WineType } from '../../models';
 
 class BottleService {
   constructor(collectionName) {
@@ -14,6 +14,11 @@ class BottleService {
 
   async getAll(offset = 20, limit = 0) {
     return Bottle.findAll({
+      include: [{
+        model: WineType,
+        attributes: ['name'],
+      }],
+      attributes: { exclude: ['wineTypeId'] },
       offset,
       limit,
     }).then((res, err) => {
@@ -24,7 +29,12 @@ class BottleService {
 
   async findOne(id) {
     return Bottle.findOne({
+      include: [{
+        model: WineType,
+        attributes: ['name'],
+      }],
       where: { id },
+      attributes: { exclude: ['wineTypeId'] },
     }).then((res, err) => {
       if (err) throw err;
       return res;

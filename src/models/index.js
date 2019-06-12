@@ -46,10 +46,10 @@ WineType.belongsToMany(User, {
   foreignKey: 'wineTypeId',
   through: FavouriteWine,
 });
-WineType.hasMany(Bottle, {
+/* WineType.hasMany(Bottle, {
   onDelete: 'CASCADE',
   foreignKey: 'wineTypeId',
-});
+}); */
 
 Cellar.belongsToMany(Bottle, {
   onDelete: 'CASCADE',
@@ -61,6 +61,11 @@ Bottle.belongsToMany(Cellar, {
   onDelete: 'CASCADE',
   foreignKey: 'bottleId',
   through: QuantityInCellar,
+});
+
+Bottle.belongsTo(WineType, {
+  // onDelete: 'CASCADE',
+  foreignKey: 'wineTypeId',
 });
 
 export {
