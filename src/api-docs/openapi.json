@@ -1,17 +1,18 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "ESGI-Cavino API",
+    "title": "ESGI-Cavino API ",
     "description": "A simple API to learn how to write OpenAPI Specification",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://esgi-cavino-api.herokuapp.com/api/"
+      "url": "https://esgi-cavino-api.herokuapp.com/api/",
+      "description": "❌"
     },
     {
       "url": "http://localhost:8080/api/",
-      "description": "Local testing"
+      "description": "Local testing 🆗"
     }
   ],
   "tags": [
@@ -25,7 +26,7 @@
     },
     {
       "name": "cellar",
-      "description": "Everything about Cellars"
+      "description": "Everything about Cellars  ✅(Verified June-12-2019_19h30)"
     }
   ],
   "paths": {
@@ -207,14 +208,7 @@
         },
         "responses": {
           "200": {
-            "description": "The modified user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "The number of modified objects"
           },
           "401": {
             "description": "Access token is missing or invalid",
