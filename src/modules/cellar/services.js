@@ -64,6 +64,14 @@ class CellarService {
       return res;
     });
   }
+
+  async newWithUserUUID(userUUID, data) {
+    const { name } = data;
+    return Cellar.create({ userUUID, name }).then((res, err) => {
+      if (err) throw err;
+      return res;
+    });
+  }
 }
 
 export default new CellarService('cellar');

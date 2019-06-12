@@ -18,7 +18,7 @@ cellarAuthRouter.get(`${table}/:id`, findOne);
 
 cellarAuthRouter.patch(`${table}/:id`, updateOne);
 
-cellarAuthRouter.post(`${table}`, create);
+cellarAdminRouter.post(`${table}`, create);
 
 cellarAuthRouter.delete(`${table}/:id`, deleteOne);
 

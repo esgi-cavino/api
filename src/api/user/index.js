@@ -6,7 +6,7 @@ import findOne from './middlewares/findOne';
 import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
 import getCellars from '../cellar/middlewares/getByUserUUID';
-import createCellar from '../cellar/middlewares/create';
+import newCellar from '../cellar/middlewares/newCellarWithUUID';
 import deleteCellar from '../cellar/middlewares/deleteOne';
 import getFavouriteRegions from './middlewares/getFavouriteRegions';
 import createFavouriteRegion from '../favouriteRegion/middlewares/create';
@@ -26,7 +26,7 @@ userAdminRouter.post('/user', create);
 userAuthRouter.delete('/user/:uuid', deleteOne);
 
 userAuthRouter.get('/user/cellars/:uuid', getCellars);
-userAuthRouter.post('/user/newCellar', createCellar);
+userAuthRouter.post('/user/newCellar/:uuid', newCellar);
 userAuthRouter.delete('/user/removeCellar/:id', deleteCellar);
 
 userAuthRouter.get('/user/favouriteRegions/:uuid', getFavouriteRegions);

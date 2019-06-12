@@ -11,7 +11,7 @@ import apiRouter from './api';
 import db from './db';
 import { User } from './models';
 import feed from './feeder';
-import swaggerDocument from './openapi.json';
+import swaggerDocument from './api-docs/openapi.json';
 
 require('dotenv').config();
 
