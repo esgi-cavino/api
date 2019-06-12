@@ -5,6 +5,7 @@ import Region from './region/region';
 import FavouriteRegion from './favouriteRegion/favouriteRegion';
 import FavouriteWine from './favouriteWine/favouriteWine';
 import Bottle from './bottle/bottle';
+import QuantityInCellar from './quantityInCellar/quantityInCellar';
 
 require('dotenv').config();
 
@@ -16,6 +17,7 @@ if (process.env.syncModels === 'true' && process.env.feed !== 'true') {
   FavouriteRegion.sync({ force: true });
   FavouriteWine.sync({ force: true });
   Bottle.sync({ force: true });
+  QuantityInCellar.sync({ force: true });
 }
 
 User.belongsToMany(Region, {
@@ -49,6 +51,18 @@ WineType.hasMany(Bottle, {
   foreignKey: 'wineTypeId',
 });
 
+Cellar.belongsToMany(Bottle, {
+  onDelete: 'CASCADE',
+  foreignKey: 'cellarId',
+  through: QuantityInCellar,
+});
+
+Bottle.belongsToMany(Cellar, {
+  onDelete: 'CASCADE',
+  foreignKey: 'bottleId',
+  through: QuantityInCellar,
+});
+
 export {
-  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle,
+  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, QuantityInCellar,
 };
