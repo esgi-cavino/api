@@ -58,25 +58,34 @@ WineType.belongsToMany(User, {
   foreignKey: 'cellarId',
   through: QuantityInCellar,
 }); */
-Cellar.belongsToMany(Bottle, {
+
+
+/* * Cellar.belongsToMany(Bottle, {
   onDelete: 'CASCADE',
   foreignKey: 'cellarId',
   through: PositionInCellar,
-});
+}); * */
 
 /* Bottle.belongsToMany(Cellar, {
   onDelete: 'CASCADE',
   foreignKey: 'bottleId',
   through: QuantityInCellar,
 }); */
-Bottle.belongsToMany(Cellar, {
+/* * Bottle.belongsToMany(Cellar, {
   onDelete: 'CASCADE',
   foreignKey: 'bottleId',
   through: PositionInCellar,
-});
+}); * */
 Bottle.belongsTo(WineType, {
   // onDelete: 'CASCADE',
   foreignKey: 'wineTypeId',
+});
+
+PositionInCellar.belongsTo(Cellar, {
+  foreignKey: 'cellarId',
+});
+PositionInCellar.belongsTo(Bottle, {
+  foreignKey: 'bottleId',
 });
 
 export {

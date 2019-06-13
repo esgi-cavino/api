@@ -248,12 +248,12 @@ const createPositionInCellars = async () => {
     positionY: 0,
   });
 
-  /* await positionInCellarService.create({
+  await positionInCellarService.create({
     cellarId,
     bottleId,
     positionX: 3,
     positionY: 3,
-  }); */
+  });
 };
 
 export default async () => {
