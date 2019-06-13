@@ -8,6 +8,7 @@ import favouriteRegionService from './modules/favouriteRegion/services';
 import favouriteWineService from './modules/favouriteWine/services';
 import bottleService from './modules/bottle/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
+import positionInCellarService from './modules/positionInCellar/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -17,6 +18,7 @@ import FavouriteRegion from './models/favouriteRegion/favouriteRegion';
 import FavouriteWine from './models/favouriteWine/favouriteWine';
 import Bottle from './models/bottle/bottle';
 import QuantityInCellar from './models/quantityInCellar/quantityInCellar';
+import PositionInCellar from './models/positionInCellar/positionInCellar';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
@@ -223,8 +225,35 @@ const createQuantityInCellars = async () => {
   await quantityInCellarService.create({
     cellarId,
     bottleId,
-    quantity: 1,
+    quantity: 2,
   });
+};
+
+const createPositionInCellars = async () => {
+  let cellarId;
+  Cellar.findOne({ offste: 0, limit: 1 }).then((cellar) => {
+    cellarId = cellar.id;
+  });
+  let bottleId;
+  Bottle.findOne({ offste: 0, limit: 1 }).then((bottle) => {
+    bottleId = bottle.id;
+  });
+
+  await PositionInCellar.sync({ force: true });
+
+  await positionInCellarService.create({
+    cellarId,
+    bottleId,
+    positionX: 0,
+    positionY: 0,
+  });
+
+  /* await positionInCellarService.create({
+    cellarId,
+    bottleId,
+    positionX: 3,
+    positionY: 3,
+  }); */
 };
 
 export default async () => {
@@ -236,4 +265,5 @@ export default async () => {
   await createFavouriteWines();
   await createBottles();
   await createQuantityInCellars();
+  await createPositionInCellars();
 };

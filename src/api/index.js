@@ -10,6 +10,7 @@ import { favouriteRegionRouter, favouriteRegionAuthRouter, favouriteRegionAdminR
 import { favouriteWineRouter, favouriteWineAuthRouter, favouriteWineAdminRouter } from './favouriteWine';
 import { bottleRouter, bottleAuthRouter, bottleAdminRouter } from './bottle';
 import { quantityInCellarRouter, quantityInCellarAuthRouter, quantityInCellarAdminRouter } from './quantityInCellar';
+import { positionInCellarRouter, positionInCellarAuthRouter, positionInCellarAdminRouter } from './positionInCellar';
 import setCORSHeaders from './middleware/setCORSHeaders';
 
 const router = Router();
@@ -28,6 +29,7 @@ router.use(favouriteRegionRouter);
 router.use(favouriteWineRouter);
 router.use(bottleRouter);
 router.use(quantityInCellarRouter);
+router.use(positionInCellarRouter);
 
 // Authenticated request
 router.use(passport.authorize('auth-rule', { session: false }));
@@ -39,6 +41,7 @@ router.use(favouriteRegionAuthRouter);
 router.use(favouriteWineAuthRouter);
 router.use(bottleAuthRouter);
 router.use(quantityInCellarAuthRouter);
+router.use(positionInCellarAuthRouter);
 
 // Admin request
 router.use(passport.authorize('admin-rule', { session: false }));
@@ -50,5 +53,6 @@ router.use(favouriteRegionAdminRouter);
 router.use(favouriteWineAdminRouter);
 router.use(bottleAdminRouter);
 router.use(quantityInCellarAdminRouter);
+router.use(positionInCellarAdminRouter);
 
 export default router;

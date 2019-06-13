@@ -18,7 +18,7 @@
   "tags": [
     {
       "name": "authentication",
-      "description": "Everything about authentications"
+      "description": "Everything about authentications ✅(Verified June-13-2019_18h20)"
     },
     {
       "name": "user",
@@ -26,11 +26,47 @@
     },
     {
       "name": "cellar",
-      "description": "Everything about Cellars  ✅(Verified June-12-2019_19h30)"
+      "description": "Everything about Cellars ✅(Verified June-13-2019_18h05)"
+    },
+    {
+      "name": "bottle",
+      "description": "Everything about Bottles ✅(Verified June-13-2019_18h15)"
+    },
+    {
+      "name": "favouriteRegion",
+      "description": "Everything about FavouriteRegions 🆗(Verified June-13-2019_18h30)"
+    },
+    {
+      "name": "favouriteWine",
+      "description": "Everything about FavouriteWines 🆗(Verified June-13-2019_18h40)"
     },
     {
       "name": "quantityInCellar",
-      "description": "Everything about QuantityInCellars  🆗(Verified June-12-2019_23h00)"
+      "description": "Everything about QuantityInCellars 🅓🅔🅟🅡🅔🅒🅐🅣🅔🅓 ✅(Verified June-13-2019_18h10)"
+    },
+    {
+      "name": "positionInCellar",
+      "description": "Everything about PositionInCellars ✅(Verified June-13-2019_19h40)"
+    },
+    {
+      "name": "region",
+      "description": "Everything about Regions ✅(Verified June-13-2019_18h45)"
+    },
+    {
+      "name": "wineType",
+      "description": "Everything about WineTypes ✅(Verified June-13-2019_18h45)"
+    },
+    {
+      "name": "domain",
+      "description": "Everything about Domains (TODO)"
+    },
+    {
+      "name": "vintage",
+      "description": "Everything about Vintages (TODO)"
+    },
+    {
+      "name": "country",
+      "description": "Everything about Countrys (TODO)"
     }
   ],
   "paths": {
@@ -88,6 +124,12 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "firstname": {
                     "type": "string"
@@ -100,6 +142,20 @@
                   },
                   "password": {
                     "type": "string"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "adress": {
+                    "type": "string"
+                  },
+                  "isSeller": {
+                    "type": "boolean",
+                    "default": "false"
+                  },
+                  "IsAdmin": {
+                    "type": "boolean",
+                    "default": "false"
                   }
                 }
               }
@@ -363,7 +419,7 @@
         "tags": [
           "user"
         ],
-        "summary": "delete one user cellar",
+        "summary": "TODO delete one user cellar",
         "description": "delete a cellar by uuid and id.",
         "parameters": [
           {
@@ -392,12 +448,175 @@
         ]
       }
     },
-    "/user/favouriteWine/{uuid}": {
+    "/user/favouriteRegions/{uuid}": {
       "get": {
         "tags": [
           "user"
         ],
-        "summary": "Get all favourite Wines Type of one user",
+        "summary": "TODO Get all favouriteRegions of one user",
+        "description": "Returns a list containing all favouriteRegions for one user.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "The uuid of the wanted user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of FavouriteRegions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "userUUID": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/user/newFavouriteRegion/{uuid}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "TODO Create a new favouriteRegion for one user",
+        "description": "Returns the new favouriteRegion.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "The uuid of the wanted user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "regionId": {
+                    "type": "integer"
+                  },
+                  "userUUID": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The new FavouriteRegion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavouriteRegion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/user/removeFavouriteRegion/{uuid}/{id}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "TODO delete one user favouriteRegion",
+        "description": "delete a favouriteRegion by uuid and id.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "The uuid of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteRegion to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/user/favouriteWines/{uuid}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "TODO Get all favouriteWines Type of one user",
         "description": "Returns a list containing all favouriteWines for one user.",
         "parameters": [
           {
@@ -451,12 +670,14 @@
             "JWT": []
           }
         ]
-      },
+      }
+    },
+    "/user/newFavouriteWine/{uuid}": {
       "post": {
         "tags": [
           "user"
         ],
-        "summary": "Create a new favouriteWine for one user",
+        "summary": "TODO Create a new favouriteWine for one user",
         "description": "Returns the new favouriteWine.",
         "parameters": [
           {
@@ -510,12 +731,12 @@
         ]
       }
     },
-    "/user/favouriteWine/{uuid}/{id}": {
+    "/user/removeFavouriteWine/{uuid}/{id}": {
       "delete": {
         "tags": [
           "user"
         ],
-        "summary": "delete one user favouriteWine",
+        "summary": "TODO delete one user favouriteWine",
         "description": "delete a favouriteWine by uuid and id.",
         "parameters": [
           {
@@ -565,6 +786,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "type": "string"
@@ -612,6 +837,12 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "firstname": {
                     "type": "string"
@@ -637,7 +868,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "uuid": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -708,6 +947,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "name",
+                  "userUUID"
+                ],
                 "properties": {
                   "name": {
                     "type": "string"
@@ -913,7 +1156,8 @@
           {
             "JWT": []
           }
-        ]
+        ],
+        "deprecated": "true"
       },
       "post": {
         "tags": [
@@ -926,6 +1170,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "quantity",
+                  "cellarId",
+                  "bottleId"
+                ],
                 "properties": {
                   "quantity": {
                     "type": "integer"
@@ -962,7 +1211,8 @@
           {
             "JWT-Admin": []
           }
-        ]
+        ],
+        "deprecated": "true"
       }
     },
     "/quantityInCellar/{id}": {
@@ -1003,7 +1253,8 @@
           {
             "JWT": []
           }
-        ]
+        ],
+        "deprecated": "true"
       },
       "patch": {
         "tags": [
@@ -1049,7 +1300,8 @@
           {
             "JWT": []
           }
-        ]
+        ],
+        "deprecated": "true"
       },
       "delete": {
         "tags": [
@@ -1062,6 +1314,2035 @@
             "name": "id",
             "in": "path",
             "description": "The id of the quantityInCellar to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "deprecated": "true"
+      }
+    },
+    "/positionInCellar": {
+      "get": {
+        "tags": [
+          "positionInCellar"
+        ],
+        "summary": "Gets all positionInCellars",
+        "description": "Returns a list containing all positionInCellars.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of PositionInCellar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PositionInCellar"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "positionInCellar"
+        ],
+        "summary": "Creates a positionInCellar",
+        "description": "Creates a positionInCellar with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "positionX",
+                  "positionY",
+                  "cellarId",
+                  "bottleId"
+                ],
+                "properties": {
+                  "positionX": {
+                    "type": "integer"
+                  },
+                  "positionY": {
+                    "type": "integer"
+                  },
+                  "cellarId": {
+                    "type": "integer"
+                  },
+                  "bottleId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "PositionyInCellar created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionInCellar"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT-Admin": []
+          }
+        ]
+      }
+    },
+    "/positionInCellar/{id}": {
+      "get": {
+        "tags": [
+          "positionInCellar"
+        ],
+        "summary": "Get one positionInCellar",
+        "description": "Returns the wanted positionInCellar.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted positionInCellar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted positionInCellar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionInCellar"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "positionInCellar"
+        ],
+        "summary": "update one positionInCellar",
+        "description": "Returns the updated positionInCellar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the positionInCellar to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "positionX": {
+                    "type": "integer"
+                  },
+                  "positionY": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "positionInCellar"
+        ],
+        "summary": "delete one positionInCellar",
+        "description": "delete a positionInCellar by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the positionInCellar to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/bottle": {
+      "get": {
+        "tags": [
+          "bottle"
+        ],
+        "summary": "Gets all bottles",
+        "description": "Returns a list containing all bottles.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Bottle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bottle"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "bottle"
+        ],
+        "summary": "Creates a bottle",
+        "description": "Creates a bottle with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+				"required": [
+                  "name",
+                  "price"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "averagePrice": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "isOrganic": {
+                    "type": "boolean",
+                    "default": "false"
+                  },
+                  "wineTypeId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Bottle created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bottle"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT-Admin": []
+          }
+        ]
+      }
+    },
+    "/bottle/{id}": {
+      "get": {
+        "tags": [
+          "bottle"
+        ],
+        "summary": "Get one bottle",
+        "description": "Returns the wanted bottle.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted bottle",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted bottle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bottle"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "bottle"
+        ],
+        "summary": "update one bottle",
+        "description": "Returns the updated bottle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the bottle to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "averagePrice": {
+                    "type": "integer",
+                    "format": "float"
+                  },
+                  "isOrganic": {
+                    "type": "boolean",
+                    "default": "false"
+                  },
+                  "wineTypeId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "bottle"
+        ],
+        "summary": "delete one bottle",
+        "description": "delete a bottle by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the bottle to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/favouriteWine": {
+      "get": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "Gets all favouriteWines",
+        "description": "Returns a list containing all favouriteWines.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of FavouriteWine",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FavouriteWine"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "Creates a favouriteWine",
+        "description": "Creates a favouriteWine with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userUUID",
+                  "wineTypeId"
+                ],
+                "properties": {
+                  "userUUID": {
+                    "type": "string"
+                  },
+                  "wineTypeId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "FavouriteWine created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavouriteWine"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/favouriteWine/{id}": {
+      "get": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "Get one favouriteWine",
+        "description": "Returns the wanted favouriteWine.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted favouriteWine",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted favouriteWine",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavouriteWine"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "update one favouriteWine",
+        "description": "Returns the updated favouriteWine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteWine to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userUUID": {
+                    "type": "string"
+                  },
+                  "wineTypeId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "delete one favouriteWine",
+        "description": "delete a favouriteWine by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteWine to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/favouriteRegion": {
+      "get": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "Gets all favouriteRegions",
+        "description": "Returns a list containing all favouriteRegions.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of FavouriteRegion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FavouriteRegion"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "Creates a favouriteRegion",
+        "description": "Creates a favouriteRegion with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userUUID",
+                  "regionId"
+                ],
+                "properties": {
+                  "userUUID": {
+                    "type": "string"
+                  },
+                  "regionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "FavouriteRegion created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavouriteRegion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/favouriteRegion/{id}": {
+      "get": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "Get one favouriteRegion",
+        "description": "Returns the wanted favouriteRegion.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted favouriteRegion",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted favouriteRegion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavouriteRegion"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "update one favouriteRegion",
+        "description": "Returns the updated favouriteRegion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteRegion to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userUUID": {
+                    "type": "string"
+                  },
+                  "regionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "delete one favouriteRegion",
+        "description": "delete a favouriteRegion by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteRegion to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/region": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Gets all regions",
+        "description": "Returns a list containing all regions.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Region",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Creates a region",
+        "description": "Creates a region with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Region created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/region/{id}": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "Get one region",
+        "description": "Returns the wanted region.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted region",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted region",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "region"
+        ],
+        "summary": "update one region",
+        "description": "Returns the updated region",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the region to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "region"
+        ],
+        "summary": "delete one region",
+        "description": "delete a region by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the region to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/wineType": {
+      "get": {
+        "tags": [
+          "wineType"
+        ],
+        "summary": "Gets all wineTypes",
+        "description": "Returns a list containing all wineTypes.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of WineType",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WineType"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "wineType"
+        ],
+        "summary": "Creates a wineType",
+        "description": "Creates a wineType with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "WineType created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WineType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/wineType/{id}": {
+      "get": {
+        "tags": [
+          "wineType"
+        ],
+        "summary": "Get one wineType",
+        "description": "Returns the wanted wineType.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted wineType",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted wineType",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WineType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "wineType"
+        ],
+        "summary": "update one wineType",
+        "description": "Returns the updated wineType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wineType to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "wineType"
+        ],
+        "summary": "delete one wineType",
+        "description": "delete a wineType by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wineType to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/domain": {
+      "get": {
+        "tags": [
+          "domain"
+        ],
+        "summary": "Gets all domains",
+        "description": "Returns a list containing all domains.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Domain",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "domain"
+        ],
+        "summary": "Creates a domain",
+        "description": "Creates a domain with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "domain created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Domain"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/domain/{id}": {
+      "get": {
+        "tags": [
+          "domain"
+        ],
+        "summary": "Get one domain",
+        "description": "Returns the wanted domain.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted domain",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted domain",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Domain"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "domain"
+        ],
+        "summary": "update one domain",
+        "description": "Returns the updated domain",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the domain to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "domain"
+        ],
+        "summary": "delete one domain",
+        "description": "delete a domain by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the domain to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/vintage": {
+      "get": {
+        "tags": [
+          "vintage"
+        ],
+        "summary": "Gets all vintages",
+        "description": "Returns a list containing all vintages.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of Vintage",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vintage"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "vintage"
+        ],
+        "summary": "Creates a vintage",
+        "description": "Creates a vintage with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "vintage created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vintage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/vintage/{id}": {
+      "get": {
+        "tags": [
+          "vintage"
+        ],
+        "summary": "Get one vintage",
+        "description": "Returns the wanted vintage.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted vintage",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted vintage",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vintage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "vintage"
+        ],
+        "summary": "update one vintage",
+        "description": "Returns the updated vintage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the vintage to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "vintage"
+        ],
+        "summary": "delete one vintage",
+        "description": "delete a vintage by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the vintage to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	"/country": {
+      "get": {
+        "tags": [
+          "country"
+        ],
+        "summary": "Gets all countrys",
+        "description": "Returns a list containing all countrys.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of country",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Country"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "country"
+        ],
+        "summary": "Creates a country",
+        "description": "Creates a country with request body parameters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "country created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/country/{id}": {
+      "get": {
+        "tags": [
+          "country"
+        ],
+        "summary": "Get one country",
+        "description": "Returns the wanted country.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the wanted country",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The wanted country",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "country"
+        ],
+        "summary": "update one country",
+        "description": "Returns the updated country",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the country to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The number of modified objects"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "country"
+        ],
+        "summary": "delete one country",
+        "description": "delete a country by id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the country to delete",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1102,6 +3383,20 @@
           "email": {
             "type": "string"
           },
+          "age": {
+            "type": "integer"
+          },
+          "adress": {
+            "type": "string"
+          },
+          "isSeller": {
+            "type": "boolean",
+            "default": "false"
+          },
+          "IsAdmin": {
+            "type": "boolean",
+            "default": "false"
+          },
           "createdAt": {
             "type": "string"
           },
@@ -1130,13 +3425,13 @@
           }
         }
       },
-      "favouriteRegion": {
+      "FavouriteRegion": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer"
           },
-          "wineTypeId": {
+          "regionId": {
             "type": "integer"
           },
           "userUUID": {
@@ -1156,7 +3451,7 @@
           "id": {
             "type": "integer"
           },
-          "regionId": {
+          "wineTypeId": {
             "type": "integer"
           },
           "userUUID": {
@@ -1184,6 +3479,157 @@
           },
           "bottleId": {
             "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PositionInCellar": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "positionX": {
+            "type": "integer"
+          },
+          "positionY": {
+            "type": "integer"
+          },
+          "cellarId": {
+            "type": "integer"
+          },
+          "bottleId": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Bottle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "float"
+          },
+          "averagePrice": {
+            "type": "integer",
+            "format": "float"
+          },
+          "isOrganic": {
+            "type": "boolean",
+            "default": "false"
+          },
+          "wineType": {
+            "type": "object",
+            "properties": {
+              "name":{
+                "type": "string"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+		}
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "WineType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Domain": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Vintage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string"
