@@ -9,6 +9,7 @@ import favouriteWineService from './modules/favouriteWine/services';
 import bottleService from './modules/bottle/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
+import countryService from './modules/country/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -19,6 +20,7 @@ import FavouriteWine from './models/favouriteWine/favouriteWine';
 import Bottle from './models/bottle/bottle';
 import QuantityInCellar from './models/quantityInCellar/quantityInCellar';
 import PositionInCellar from './models/positionInCellar/positionInCellar';
+import Country from './models/country/country';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
@@ -142,6 +144,18 @@ const createRegions = async () => {
   });
 };
 
+const createCountrys = async () => {
+  await Country.sync({ force: true });
+
+  await countryService.create({
+    name: 'France',
+  });
+
+  await countryService.create({
+    name: 'Allemagne',
+  });
+};
+
 const createFavouriteRegions = async () => {
   let userUuid;
   User.findOne({ where: { email: userEmail } }).then((user) => {
@@ -190,6 +204,16 @@ const createBottles = async () => {
     wineTypeId = wineType.id;
   });
 
+  let regionId = '';
+  Region.findOne({ offste: 0, limit: 1 }).then((region) => {
+    regionId = region.id;
+  });
+
+  let countryId = '';
+  Country.findOne({ offste: 0, limit: 1 }).then((country) => {
+    countryId = country.id;
+  });
+
   await Bottle.sync({ force: true });
 
   await bottleService.create({
@@ -199,6 +223,8 @@ const createBottles = async () => {
     averagePrice: 34.3,
     isOrganic: false,
     wineTypeId,
+    regionId,
+    countryId,
   });
 
   await bottleService.create({
@@ -207,6 +233,8 @@ const createBottles = async () => {
     price: 49.99,
     isOrganic: true,
     wineTypeId,
+    regionId,
+    countryId,
   });
 };
 
@@ -261,6 +289,7 @@ export default async () => {
   await createCellars();
   await createWineTypes();
   await createRegions();
+  await createCountrys();
   await createFavouriteRegions();
   await createFavouriteWines();
   await createBottles();
