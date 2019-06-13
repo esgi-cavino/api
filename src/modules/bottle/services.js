@@ -1,4 +1,6 @@
-import { Bottle, WineType } from '../../models';
+import {
+ Bottle, WineType, Region, Country, Domain, Vintage 
+} from '../../models';
 
 class BottleService {
   constructor(collectionName) {
@@ -17,8 +19,20 @@ class BottleService {
       include: [{
         model: WineType,
         attributes: ['name'],
+      }, {
+        model: Region,
+        attributes: ['name'],
+      }, {
+        model: Country,
+        attributes: ['name'],
+      }, {
+        model: Domain,
+        attributes: ['name'],
+      }, {
+        model: Vintage,
+        attributes: ['year'],
       }],
-      attributes: { exclude: ['wineTypeId'] },
+      attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
       offset,
       limit,
     }).then((res, err) => {
@@ -32,9 +46,21 @@ class BottleService {
       include: [{
         model: WineType,
         attributes: ['name'],
+      }, {
+        model: Region,
+        attributes: ['name'],
+      }, {
+        model: Country,
+        attributes: ['name'],
+      }, {
+        model: Domain,
+        attributes: ['name'],
+      }, {
+        model: Vintage,
+        attributes: ['year'],
       }],
       where: { id },
-      attributes: { exclude: ['wineTypeId'] },
+      attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
     }).then((res, err) => {
       if (err) throw err;
       return res;

@@ -10,6 +10,8 @@ import bottleService from './modules/bottle/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
 import countryService from './modules/country/services';
+import domainService from './modules/domain/services';
+import vintageService from './modules/vintage/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -21,6 +23,8 @@ import Bottle from './models/bottle/bottle';
 import QuantityInCellar from './models/quantityInCellar/quantityInCellar';
 import PositionInCellar from './models/positionInCellar/positionInCellar';
 import Country from './models/country/country';
+import Domain from './models/domain/domain';
+import Vintage from './models/vintage/vintage';
 
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
@@ -156,6 +160,30 @@ const createCountrys = async () => {
   });
 };
 
+const createDomains = async () => {
+  await Domain.sync({ force: true });
+
+  await domainService.create({
+    name: 'Château d\'Agassac',
+  });
+
+  await domainService.create({
+    name: 'Château Lagrange',
+  });
+};
+
+const createVintages = async () => {
+  await Vintage.sync({ force: true });
+
+  await vintageService.create({
+    year: 2018,
+  });
+
+  await vintageService.create({
+    year: 2019,
+  });
+};
+
 const createFavouriteRegions = async () => {
   let userUuid;
   User.findOne({ where: { email: userEmail } }).then((user) => {
@@ -214,6 +242,16 @@ const createBottles = async () => {
     countryId = country.id;
   });
 
+  let domainId = '';
+  Domain.findOne({ offste: 0, limit: 1 }).then((domain) => {
+    domainId = domain.id;
+  });
+
+  let vintageId = '';
+  Vintage.findOne({ offste: 0, limit: 1 }).then((vintage) => {
+    vintageId = vintage.id;
+  });
+
   await Bottle.sync({ force: true });
 
   await bottleService.create({
@@ -225,6 +263,8 @@ const createBottles = async () => {
     wineTypeId,
     regionId,
     countryId,
+    domainId,
+    vintageId,
   });
 
   await bottleService.create({
@@ -235,6 +275,8 @@ const createBottles = async () => {
     wineTypeId,
     regionId,
     countryId,
+    domainId,
+    vintageId,
   });
 };
 
@@ -290,6 +332,8 @@ export default async () => {
   await createWineTypes();
   await createRegions();
   await createCountrys();
+  await createDomains();
+  await createVintages();
   await createFavouriteRegions();
   await createFavouriteWines();
   await createBottles();

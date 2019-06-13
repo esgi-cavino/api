@@ -8,6 +8,8 @@ import Bottle from './bottle/bottle';
 import QuantityInCellar from './quantityInCellar/quantityInCellar';
 import PositionInCellar from './positionInCellar/positionInCellar';
 import Country from './country/country';
+import Domain from './domain/domain';
+import Vintage from './vintage/vintage';
 
 require('dotenv').config();
 
@@ -22,6 +24,8 @@ if (process.env.syncModels === 'true' && process.env.feed !== 'true') {
   QuantityInCellar.sync({ force: true });
   PositionInCellar.sync({ force: true });
   Country.sync({ force: true });
+  Domain.sync({ force: true });
+  Vintage.sync({ force: true });
 }
 
 User.belongsToMany(Region, {
@@ -87,6 +91,12 @@ Bottle.belongsTo(Region, {
 Bottle.belongsTo(Country, {
   foreignKey: 'countryId',
 });
+Bottle.belongsTo(Domain, {
+  foreignKey: 'domainId',
+});
+Bottle.belongsTo(Vintage, {
+  foreignKey: 'vintageId',
+});
 
 PositionInCellar.belongsTo(Cellar, {
   foreignKey: 'cellarId',
@@ -94,7 +104,10 @@ PositionInCellar.belongsTo(Cellar, {
 PositionInCellar.belongsTo(Bottle, {
   foreignKey: 'bottleId',
 });
+PositionInCellar.belongsTo(Domain, {
+  foreignKey: 'domainId',
+});
 
 export {
-  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, QuantityInCellar, PositionInCellar, Country,
+  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, QuantityInCellar, PositionInCellar, Country, Domain, Vintage,
 };

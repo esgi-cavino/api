@@ -12,6 +12,8 @@ import { bottleRouter, bottleAuthRouter, bottleAdminRouter } from './bottle';
 import { quantityInCellarRouter, quantityInCellarAuthRouter, quantityInCellarAdminRouter } from './quantityInCellar';
 import { positionInCellarRouter, positionInCellarAuthRouter, positionInCellarAdminRouter } from './positionInCellar';
 import { countryRouter, countryAuthRouter, countryAdminRouter } from './country';
+import { domainRouter, domainAuthRouter, domainAdminRouter } from './domain';
+import { vintageRouter, vintageAuthRouter, vintageAdminRouter } from './vintage';
 import setCORSHeaders from './middleware/setCORSHeaders';
 
 const router = Router();
@@ -32,6 +34,8 @@ router.use(bottleRouter);
 router.use(quantityInCellarRouter);
 router.use(positionInCellarRouter);
 router.use(countryRouter);
+router.use(domainRouter);
+router.use(vintageRouter);
 
 // Authenticated request
 router.use(passport.authorize('auth-rule', { session: false }));
@@ -45,6 +49,8 @@ router.use(bottleAuthRouter);
 router.use(quantityInCellarAuthRouter);
 router.use(positionInCellarAuthRouter);
 router.use(countryAuthRouter);
+router.use(domainAuthRouter);
+router.use(vintageAuthRouter);
 
 // Admin request
 router.use(passport.authorize('admin-rule', { session: false }));
@@ -58,5 +64,7 @@ router.use(bottleAdminRouter);
 router.use(quantityInCellarAdminRouter);
 router.use(positionInCellarAdminRouter);
 router.use(countryAdminRouter);
+router.use(domainAdminRouter);
+router.use(vintageAdminRouter);
 
 export default router;
