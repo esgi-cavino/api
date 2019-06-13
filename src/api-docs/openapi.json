@@ -2,17 +2,17 @@
   "openapi": "3.0.1",
   "info": {
     "title": "ESGI-Cavino API ",
-    "description": "A simple API to learn how to write OpenAPI Specification",
+    "description": "Documentation with OpenAPI Specification",
     "version": "1.0.0"
   },
   "servers": [
     {
       "url": "https://esgi-cavino-api.herokuapp.com/api/",
-      "description": "❌"
+      "description": "Production server ✔️"
     },
     {
       "url": "http://localhost:8080/api/",
-      "description": "Local testing 🆗"
+      "description": "Local testing ❌"
     }
   ],
   "tags": [
@@ -22,7 +22,7 @@
     },
     {
       "name": "user",
-      "description": "Everything about Users"
+      "description": "Everything about Users ☑️"
     },
     {
       "name": "cellar",
@@ -42,7 +42,7 @@
     },
     {
       "name": "quantityInCellar",
-      "description": "Everything about QuantityInCellars 🅓🅔🅟🅡🅔🅒🅐🅣🅔🅓 ✅(Verified June-13-2019_18h10)"
+      "description": "Everything about QuantityInCellars 🅓🅔🅟🅡🅔🅒🅐🅣🅔🅓 ❎(Verified June-13-2019_18h10)"
     },
     {
       "name": "positionInCellar",
@@ -58,15 +58,15 @@
     },
     {
       "name": "domain",
-      "description": "Everything about Domains (TODO)"
+      "description": "Everything about Domains ✅(Verified June-13-2019_21h40)"
     },
     {
       "name": "vintage",
-      "description": "Everything about Vintages (TODO)"
+      "description": "Everything about Vintages ✅(Verified June-13-2019_21h45)"
     },
     {
       "name": "country",
-      "description": "Everything about Countrys (TODO)"
+      "description": "Everything about Countrys ✅(Verified June-13-2019_21h50)"
     }
   ],
   "paths": {
@@ -146,14 +146,14 @@
                   "age": {
                     "type": "integer"
                   },
-                  "adress": {
+                  "address": {
                     "type": "string"
                   },
                   "isSeller": {
                     "type": "boolean",
                     "default": "false"
                   },
-                  "IsAdmin": {
+                  "isAdmin": {
                     "type": "boolean",
                     "default": "false"
                   }
@@ -419,7 +419,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO delete one user cellar",
+        "summary": "delete one user cellar",
         "description": "delete a cellar by uuid and id.",
         "parameters": [
           {
@@ -453,7 +453,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO Get all favouriteRegions of one user",
+        "summary": "Get all favouriteRegions of one user",
         "description": "Returns a list containing all favouriteRegions for one user.",
         "parameters": [
           {
@@ -514,7 +514,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO Create a new favouriteRegion for one user",
+        "summary": " ❗️ (❌ It doesn't work) Create a new favouriteRegion for one user",
         "description": "Returns the new favouriteRegion.",
         "parameters": [
           {
@@ -573,7 +573,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO delete one user favouriteRegion",
+        "summary": "delete one user favouriteRegion",
         "description": "delete a favouriteRegion by uuid and id.",
         "parameters": [
           {
@@ -616,7 +616,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO Get all favouriteWines Type of one user",
+        "summary": "Get all favouriteWines Type of one user",
         "description": "Returns a list containing all favouriteWines for one user.",
         "parameters": [
           {
@@ -677,7 +677,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO Create a new favouriteWine for one user",
+        "summary": " ❗️ (❌ It doesn't work) Create a new favouriteWine for one user",
         "description": "Returns the new favouriteWine.",
         "parameters": [
           {
@@ -736,7 +736,7 @@
         "tags": [
           "user"
         ],
-        "summary": "TODO delete one user favouriteWine",
+        "summary": "delete one user favouriteWine",
         "description": "delete a favouriteWine by uuid and id.",
         "parameters": [
           {
@@ -1658,6 +1658,18 @@
                   },
                   "wineTypeId": {
                     "type": "integer"
+                  },
+                  "regionId": {
+                    "type": "integer"
+                  },
+                  "countryId": {
+                    "type": "integer"
+                  },
+                  "domainId": {
+                    "type": "integer"
+                  },
+                  "vintageId": {
+                    "type": "integer"
                   }
                 }
               }
@@ -1770,6 +1782,18 @@
                     "default": "false"
                   },
                   "wineTypeId": {
+                    "type": "integer"
+                  },
+                  "regionId": {
+                    "type": "integer"
+                  },
+                  "countryId": {
+                    "type": "integer"
+                  },
+                  "domainId": {
+                    "type": "integer"
+                  },
+                  "vintageId": {
                     "type": "integer"
                   }
                 }
@@ -2993,11 +3017,11 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "name"
+                  "year"
                 ],
                 "properties": {
-                  "name": {
-                    "type": "string"
+                  "year": {
+                    "type": "integer"
                   }
                 }
               }
@@ -3091,8 +3115,8 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string"
+                  "year": {
+                    "type": "integer"
                   }
                 }
               }
@@ -3546,6 +3570,38 @@
               }
             }
           },
+          "region": {
+            "type": "object",
+            "properties": {
+              "name":{
+                "type": "string"
+              }
+            }
+          },
+          "country": {
+            "type": "object",
+            "properties": {
+              "name":{
+                "type": "string"
+              }
+            }
+          },
+          "domain": {
+            "type": "object",
+            "properties": {
+              "name":{
+                "type": "string"
+              }
+            }
+          },
+          "vintage": {
+            "type": "object",
+            "properties": {
+              "year":{
+                "type": "integer"
+              }
+            }
+          },
           "createdAt": {
             "type": "string"
           },
@@ -3611,8 +3667,8 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
+          "year": {
+            "type": "integer"
           },
           "createdAt": {
             "type": "string"
