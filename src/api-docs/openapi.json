@@ -151,11 +151,11 @@
                   },
                   "isSeller": {
                     "type": "boolean",
-                    "default": "false"
+                    "default": false
                   },
                   "isAdmin": {
                     "type": "boolean",
-                    "default": "false"
+                    "default": false
                   }
                 }
               }
@@ -1157,7 +1157,7 @@
             "JWT": []
           }
         ],
-        "deprecated": "true"
+        "deprecated": true
       },
       "post": {
         "tags": [
@@ -1212,7 +1212,7 @@
             "JWT-Admin": []
           }
         ],
-        "deprecated": "true"
+        "deprecated": true
       }
     },
     "/quantityInCellar/{id}": {
@@ -1254,7 +1254,7 @@
             "JWT": []
           }
         ],
-        "deprecated": "true"
+        "deprecated": true
       },
       "patch": {
         "tags": [
@@ -1301,7 +1301,7 @@
             "JWT": []
           }
         ],
-        "deprecated": "true"
+        "deprecated": true
       },
       "delete": {
         "tags": [
@@ -1334,7 +1334,7 @@
             "JWT": []
           }
         ],
-        "deprecated": "true"
+        "deprecated": true
       }
     },
     "/positionInCellar": {
@@ -1654,7 +1654,7 @@
                   },
                   "isOrganic": {
                     "type": "boolean",
-                    "default": "false"
+                    "default": false
                   },
                   "wineTypeId": {
                     "type": "integer"
@@ -1779,7 +1779,7 @@
                   },
                   "isOrganic": {
                     "type": "boolean",
-                    "default": "false"
+                    "default": false
                   },
                   "wineTypeId": {
                     "type": "integer"
@@ -3415,11 +3415,11 @@
           },
           "isSeller": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "IsAdmin": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "createdAt": {
             "type": "string"
@@ -3560,7 +3560,7 @@
           },
           "isOrganic": {
             "type": "boolean",
-            "default": "false"
+            "default": false
           },
           "wineType": {
             "type": "object",
