@@ -12,14 +12,14 @@ const vintageAdminRouter = Router();
 
 const table = '/vintage';
 
-vintageRouter.get(table, getAll);
+vintageAuthRouter.get(table, getAll);
 
 vintageAuthRouter.get(`${table}/:id`, findOne);
 
-vintageAuthRouter.patch(`${table}/:id`, updateOne);
+vintageAdminRouter.patch(`${table}/:id`, updateOne);
 
 vintageAuthRouter.post(`${table}`, create);
 
-vintageAuthRouter.delete(`${table}/:id`, deleteOne);
+vintageAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { vintageRouter, vintageAuthRouter, vintageAdminRouter };

@@ -12,7 +12,7 @@ const bottleAdminRouter = Router();
 
 const table = '/bottle';
 
-bottleRouter.get(table, getAll);
+bottleAuthRouter.get(table, getAll);
 
 bottleAuthRouter.get(`${table}/:id`, findOne);
 
@@ -20,6 +20,6 @@ bottleAuthRouter.patch(`${table}/:id`, updateOne);
 
 bottleAuthRouter.post(`${table}`, create);
 
-bottleAuthRouter.delete(`${table}/:id`, deleteOne);
+bottleAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { bottleRouter, bottleAuthRouter, bottleAdminRouter };

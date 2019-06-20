@@ -12,14 +12,14 @@ const countryAdminRouter = Router();
 
 const table = '/country';
 
-countryRouter.get(table, getAll);
+countryAuthRouter.get(table, getAll);
 
 countryAuthRouter.get(`${table}/:id`, findOne);
 
-countryAuthRouter.patch(`${table}/:id`, updateOne);
+countryAdminRouter.patch(`${table}/:id`, updateOne);
 
 countryAuthRouter.post(`${table}`, create);
 
-countryAuthRouter.delete(`${table}/:id`, deleteOne);
+countryAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { countryRouter, countryAuthRouter, countryAdminRouter };

@@ -12,14 +12,14 @@ const quantityInCellarAdminRouter = Router();
 
 const table = '/quantityInCellar';
 
-quantityInCellarRouter.get(table, getAll);
+quantityInCellarAdminRouter.get(table, getAll);
 
-quantityInCellarAuthRouter.get(`${table}/:id`, findOne);
+quantityInCellarAdminRouter.get(`${table}/:id`, findOne);
 
-quantityInCellarAuthRouter.patch(`${table}/:id`, updateOne);
+quantityInCellarAdminRouter.patch(`${table}/:id`, updateOne);
 
-quantityInCellarAuthRouter.post(`${table}`, create);
+quantityInCellarAdminRouter.post(`${table}`, create);
 
-quantityInCellarAuthRouter.delete(`${table}/:id`, deleteOne);
+quantityInCellarAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { quantityInCellarRouter, quantityInCellarAuthRouter, quantityInCellarAdminRouter };

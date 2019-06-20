@@ -12,14 +12,14 @@ const regionAdminRouter = Router();
 
 const table = '/region';
 
-regionRouter.get(table, getAll);
+regionAuthRouter.get(table, getAll);
 
 regionAuthRouter.get(`${table}/:id`, findOne);
 
-regionAuthRouter.patch(`${table}/:id`, updateOne);
+regionAdminRouter.patch(`${table}/:id`, updateOne);
 
 regionAuthRouter.post(`${table}`, create);
 
-regionAuthRouter.delete(`${table}/:id`, deleteOne);
+regionAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { regionRouter, regionAuthRouter, regionAdminRouter };

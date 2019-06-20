@@ -12,14 +12,14 @@ const domainAdminRouter = Router();
 
 const table = '/domain';
 
-domainRouter.get(table, getAll);
+domainAuthRouter.get(table, getAll);
 
 domainAuthRouter.get(`${table}/:id`, findOne);
 
-domainAuthRouter.patch(`${table}/:id`, updateOne);
+domainAdminRouter.patch(`${table}/:id`, updateOne);
 
 domainAuthRouter.post(`${table}`, create);
 
-domainAuthRouter.delete(`${table}/:id`, deleteOne);
+domainAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { domainRouter, domainAuthRouter, domainAdminRouter };

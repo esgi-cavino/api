@@ -12,14 +12,14 @@ const wineTypeAdminRouter = Router();
 
 const table = '/wineType';
 
-wineTypeRouter.get(table, getAll);
+wineTypeAuthRouter.get(table, getAll);
 
 wineTypeAuthRouter.get(`${table}/:id`, findOne);
 
-wineTypeAuthRouter.patch(`${table}/:id`, updateOne);
+wineTypeAdminRouter.patch(`${table}/:id`, updateOne);
 
 wineTypeAuthRouter.post(`${table}`, create);
 
-wineTypeAuthRouter.delete(`${table}/:id`, deleteOne);
+wineTypeAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { wineTypeRouter, wineTypeAuthRouter, wineTypeAdminRouter };

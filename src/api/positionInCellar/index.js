@@ -12,7 +12,8 @@ const positionInCellarAdminRouter = Router();
 
 const table = '/positionInCellar';
 
-positionInCellarRouter.get(table, getAll);
+positionInCellarAdminRouter.get(table, getAll);
+// positionInCellarAuthRouter.get(`${table}/byCellar/:id`, getAllByCellarId);
 
 positionInCellarAuthRouter.get(`${table}/:id`, findOne);
 
@@ -20,6 +21,7 @@ positionInCellarAuthRouter.patch(`${table}/:id`, updateOne);
 
 positionInCellarAuthRouter.post(`${table}`, create);
 
-positionInCellarAuthRouter.delete(`${table}/:id`, deleteOne);
+positionInCellarAdminRouter.delete(`${table}/:id`, deleteOne);
+// positionInCellarAuthRouter.delete(`${table}/:id/:uuid`, deleteOneByIdAndUserUUID);
 
 export { positionInCellarRouter, positionInCellarAuthRouter, positionInCellarAdminRouter };

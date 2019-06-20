@@ -12,14 +12,15 @@ const cellarAdminRouter = Router();
 
 const table = '/cellar';
 
-cellarRouter.get(table, getAll);
+cellarAdminRouter.get(table, getAll);
+// cellarAuthRouter.get(`${table}/:uuid`, findAllByUserUUID);
 
 cellarAuthRouter.get(`${table}/:id`, findOne);
 
 cellarAuthRouter.patch(`${table}/:id`, updateOne);
 
-cellarAdminRouter.post(`${table}`, create);
+cellarAuthRouter.post(`${table}`, create);
 
-cellarAuthRouter.delete(`${table}/:id`, deleteOne);
+cellarAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { cellarRouter, cellarAuthRouter, cellarAdminRouter };

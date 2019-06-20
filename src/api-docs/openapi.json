@@ -110,8 +110,17 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
           }
-        }
+        },
+        "security": [
+          {
+            "JWT-Admin": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -358,96 +367,6 @@
         ]
       }
     },
-    "/user/newCellar/{uuid}": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create a new cellar for one user",
-        "description": "Returns the new cellar.",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "description": "The uuid of the wanted user",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "The new Cellar",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Cellar"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/user/removeCellar/{id}": {
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "delete one user cellar",
-        "description": "delete a cellar by uuid and id.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of the cellar to delete",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Request response"
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
     "/user/favouriteRegions/{uuid}": {
       "get": {
         "tags": [
@@ -493,65 +412,6 @@
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/user/newFavouriteRegion/{uuid}": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": " ❗️ (❌ It doesn't work) Create a new favouriteRegion for one user",
-        "description": "Returns the new favouriteRegion.",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "description": "The uuid of the wanted user",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "regionId": {
-                    "type": "integer"
-                  },
-                  "userUUID": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "The new FavouriteRegion",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FavouriteRegion"
                 }
               }
             }
@@ -656,65 +516,6 @@
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/user/newFavouriteWine/{uuid}": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": " ❗️ (❌ It doesn't work) Create a new favouriteWine for one user",
-        "description": "Returns the new favouriteWine.",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "description": "The uuid of the wanted user",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "wineTypeId": {
-                    "type": "integer"
-                  },
-                  "userUUID": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "The new FavouriteWine",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FavouriteWine"
                 }
               }
             }
@@ -932,7 +733,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -982,7 +783,7 @@
         },
         "security": [
           {
-            "JWT-Admin": []
+            "JWT": []
           }
         ]
       }
@@ -1101,7 +902,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -1154,7 +955,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ],
         "deprecated": true
@@ -1251,7 +1052,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ],
         "deprecated": true
@@ -1298,7 +1099,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ],
         "deprecated": true
@@ -1331,7 +1132,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ],
         "deprecated": true
@@ -1385,7 +1186,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -1443,7 +1244,7 @@
         },
         "security": [
           {
-            "JWT-Admin": []
+            "JWT": []
           }
         ]
       }
@@ -1565,7 +1366,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -1695,7 +1496,7 @@
         },
         "security": [
           {
-            "JWT-Admin": []
+            "JWT": []
           }
         ]
       }
@@ -1844,7 +1645,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -2069,7 +1870,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -2294,7 +2095,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -2480,7 +2281,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -2512,7 +2313,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -2698,7 +2499,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -2730,7 +2531,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -2916,7 +2717,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -2948,7 +2749,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -3134,7 +2935,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -3166,7 +2967,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
@@ -3352,7 +3153,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       },
@@ -3384,7 +3185,7 @@
         },
         "security": [
           {
-            "JWT": []
+            "JWT-Admin": []
           }
         ]
       }
