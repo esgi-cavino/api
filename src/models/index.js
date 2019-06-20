@@ -104,9 +104,9 @@ PositionInCellar.belongsTo(Cellar, {
 PositionInCellar.belongsTo(Bottle, {
   foreignKey: 'bottleId',
 });
-PositionInCellar.belongsTo(Domain, {
+/* PositionInCellar.belongsTo(Domain, {
   foreignKey: 'domainId',
-});
+}); */
 
 export {
   User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, QuantityInCellar, PositionInCellar, Country, Domain, Vintage,
