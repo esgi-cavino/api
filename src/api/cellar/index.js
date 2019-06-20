@@ -13,7 +13,6 @@ const cellarAdminRouter = Router();
 const table = '/cellar';
 
 cellarAdminRouter.get(table, getAll);
-// cellarAuthRouter.get(`${table}/:uuid`, findAllByUserUUID);
 
 cellarAuthRouter.get(`${table}/:id`, findOne);
 
