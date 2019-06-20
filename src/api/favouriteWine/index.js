@@ -12,7 +12,7 @@ const favouriteWineAdminRouter = Router();
 
 const table = '/favouriteWine';
 
-favouriteWineRouter.get(table, getAll);
+favouriteWineAuthRouter.get(table, getAll);
 
 favouriteWineAuthRouter.get(`${table}/:id`, findOne);
 
@@ -20,6 +20,6 @@ favouriteWineAuthRouter.patch(`${table}/:id`, updateOne);
 
 favouriteWineAuthRouter.post(`${table}`, create);
 
-favouriteWineAuthRouter.delete(`${table}/:id`, deleteOne);
+favouriteWineAdminRouter.delete(`${table}/:id`, deleteOne);
 
 export { favouriteWineRouter, favouriteWineAuthRouter, favouriteWineAdminRouter };
