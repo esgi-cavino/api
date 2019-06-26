@@ -31,9 +31,33 @@ class UserService {
 
   async getAll(offset = 20, limit = 0) {
     return User.findAll({
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'age', 'address', 'isSeller', 'isAdmin', 'createdAt', 'updatedAt'],
+      attributes: { exclude: ['id', 'password', 'salt'] },
       offset,
       limit,
+    }).then((res, err) => {
+      if (err) throw err;
+      return res;
+    });
+  }
+
+  async findAllSeller(offset = 20, limit = 0) {
+    return User.findAll({
+      attributes: { exclude: ['id', 'password', 'salt'] },
+      offset,
+      limit,
+      where: { isSeller: true },
+    }).then((res, err) => {
+      if (err) throw err;
+      return res;
+    });
+  }
+
+  async findAllAdmin(offset = 20, limit = 0) {
+    return User.findAll({
+      attributes: { exclude: ['id', 'password', 'salt'] },
+      offset,
+      limit,
+      where: { isAdmin: true },
     }).then((res, err) => {
       if (err) throw err;
       return res;
@@ -43,7 +67,7 @@ class UserService {
   async findOne(uuid) {
     return User.findOne({
       where: { uuid },
-      attributes: ['uuid', 'firstname', 'lastname', 'email', 'age', 'address', 'isSeller', 'isAdmin', 'createdAt', 'updatedAt'],
+      attributes: { exclude: ['id', 'password', 'salt'] },
     }).then((res, err) => {
       if (err) throw err;
       return res;

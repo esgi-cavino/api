@@ -56,6 +56,21 @@ class FavouriteRegionService {
     });
   }
 
+  async deleteOneByIdAndUserUUID(id, userUUID) {
+    return FavouriteRegion.destroy({
+      where: {
+        id,
+        userUUID,
+      },
+    }).then((res, err) => {
+      if (err) throw err;
+      if (res > 0) {
+        return 200;
+      }
+      return (404);
+    });
+  }
+
   async removeFavouriteRegion(uuid, id) {
     return FavouriteRegion.destroy({
       where: {

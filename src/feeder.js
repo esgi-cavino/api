@@ -72,6 +72,8 @@ const createCellars = async () => {
 
   await cellarService.create({
     name: 'TheCellar',
+    width: 5,
+    height: 5,
     userUUID: userUuid,
   });
 };

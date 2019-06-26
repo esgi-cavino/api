@@ -195,6 +195,112 @@
         ]
       }
     },
+    "/sellers": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Gets all seller users",
+        "description": "Returns a list containing all seller users.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/admins": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Gets all admin users",
+        "description": "Returns a list containing all admin users.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The number of items to skip before starting to collect the result set",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT-Admin": []
+          }
+        ]
+      }
+    },
     "/user/{uuid}": {
       "get": {
         "tags": [
@@ -656,6 +762,20 @@
                   },
                   "password": {
                     "type": "string"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "isSeller": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "isAdmin": {
+                    "type": "boolean",
+                    "default": false
                   }
                 }
               }
@@ -750,11 +870,19 @@
                 "type": "object",
                 "required": [
                   "name",
+                  "width",
+                  "height",
                   "userUUID"
                 ],
                 "properties": {
                   "name": {
                     "type": "string"
+                  },
+                  "width": {
+                    "type": "integer"
+                  },
+                  "height": {
+                    "type": "integer"
                   },
                   "userUUID": {
                     "type": "string"
@@ -853,6 +981,12 @@
                 "properties": {
                   "name": {
                     "type": "string"
+                  },
+                  "width": {
+                    "type": "integer"
+                  },
+                  "height": {
+                    "type": "integer"
                   }
                 }
               }
@@ -903,6 +1037,49 @@
         "security": [
           {
             "JWT-Admin": []
+          }
+        ]
+      }
+    },
+    "/cellar/{id}/{userUUID}": {
+      "delete": {
+        "tags": [
+          "cellar"
+        ],
+        "summary": "delete one cellar",
+        "description": "delete a cellar by id and userUUID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the cellar to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "userUUID",
+            "in": "path",
+            "description": "The userUUID of the cellar to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
           }
         ]
       }
@@ -2117,7 +2294,50 @@
         ]
       }
     },
-	"/favouriteRegion": {
+    "/favouriteWine/{id}/{userUUID}": {
+      "delete": {
+        "tags": [
+          "favouriteWine"
+        ],
+        "summary": "delete one favouriteWine",
+        "description": "delete a favouriteWine by id and userUUID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteWine to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "userUUID",
+            "in": "path",
+            "description": "The userUUID of the favouriteWine to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	  "/favouriteRegion": {
       "get": {
         "tags": [
           "favouriteRegion"
@@ -2342,7 +2562,50 @@
         ]
       }
     },
-	"/region": {
+    "/favouriteRegion/{id}/{userUUID}": {
+      "delete": {
+        "tags": [
+          "favouriteRegion"
+        ],
+        "summary": "delete one favouriteRegion",
+        "description": "delete a favouriteRegion by id and userUUID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the favouriteRegion to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "userUUID",
+            "in": "path",
+            "description": "The userUUID of the favouriteRegion to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request response"
+          },
+          "401": {
+            "description": "Access token is missing or invalid",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+	  "/region": {
       "get": {
         "tags": [
           "region"
@@ -3460,7 +3723,7 @@
             "type": "boolean",
             "default": false
           },
-          "IsAdmin": {
+          "isAdmin": {
             "type": "boolean",
             "default": false
           },
@@ -3480,6 +3743,12 @@
           },
           "name": {
             "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
           },
           "userUUID": {
             "type": "string"

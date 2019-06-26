@@ -5,6 +5,7 @@ import getAll from './middlewares/getAll';
 import findOne from './middlewares/findOne';
 import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
+import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
 
 const favouriteRegionRouter = Router();
 const favouriteRegionAuthRouter = Router();
@@ -19,6 +20,8 @@ favouriteRegionAuthRouter.get(`${table}/:id`, findOne);
 favouriteRegionAuthRouter.patch(`${table}/:id`, updateOne);
 
 favouriteRegionAuthRouter.post(`${table}`, create);
+
+favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
 
 favouriteRegionAdminRouter.delete(`${table}/:id`, deleteOne);
 
