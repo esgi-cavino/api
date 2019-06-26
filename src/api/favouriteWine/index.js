@@ -5,6 +5,7 @@ import getAll from './middlewares/getAll';
 import findOne from './middlewares/findOne';
 import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
+import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
 
 const favouriteWineRouter = Router();
 const favouriteWineAuthRouter = Router();
@@ -19,6 +20,8 @@ favouriteWineAuthRouter.get(`${table}/:id`, findOne);
 favouriteWineAuthRouter.patch(`${table}/:id`, updateOne);
 
 favouriteWineAuthRouter.post(`${table}`, create);
+
+favouriteWineAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
 
 favouriteWineAdminRouter.delete(`${table}/:id`, deleteOne);
 

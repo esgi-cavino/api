@@ -56,6 +56,21 @@ class CellarService {
     });
   }
 
+  async deleteOneByIdAndUserUUID(id, userUUID) {
+    return Cellar.destroy({
+      where: {
+        id,
+        userUUID,
+      },
+    }).then((res, err) => {
+      if (err) throw err;
+      if (res > 0) {
+        return 200;
+      }
+      return (404);
+    });
+  }
+
   async findByUserUUID(userUUID) {
     return Cellar.findAll({
       where: { userUUID },

@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 import create from './middlewares/create';
 import getAll from './middlewares/getAll';
+import findAllSeller from './middlewares/findAllSeller';
+import findAllAdmin from './middlewares/findAllAdmin';
 import findOne from './middlewares/findOne';
 import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
@@ -21,6 +23,8 @@ const userAdminRouter = Router();
 
 userAdminRouter.get('/user', getAll);
 userAuthRouter.get('/user/:uuid', findOne);
+userAuthRouter.get('/sellers', findAllSeller);
+userAdminRouter.get('/admins', findAllAdmin);
 userAuthRouter.patch('/user/:uuid', updateOne);
 userAdminRouter.post('/user', create);
 userAuthRouter.delete('/user/:uuid', deleteOne);
