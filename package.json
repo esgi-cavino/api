@@ -1,0 +1,67 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Create a simple API from tuto :\r https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "./node_modules/.bin/pm2 start pm2.yml",
+    "start-prod": "./node_modules/.bin/pm2 start dist/pm2.yml",
+    "start": "./node_modules/.bin/pm2 start pm2.yml --no-daemon",
+    "stop": "./node_modules/.bin/pm2 delete pm2.yml",
+    "stop-prod": "./node_modules/.bin/pm2 delete dist/pm2.yml",
+    "logs": "./node_modules/.bin/pm2 logs",
+    "test-unit": "./node_modules/.bin/cross-env BABEL_CACHE_PATH=./node_modules/.babel_cache ./node_modules/.bin/mocha 'src/**/*.spec.js' --require babel-register",
+    "test-unit-with-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc npm run test-unit",
+    "test-lint": "./node_modules/.bin/eslint './src/**'",
+    "test": "npm run test-lint && npm run test-unit-with-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esgi-cavino/api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esgi-cavino/api/issues"
+  },
+  "homepage": "https://github.com/esgi-cavino/api#readme",
+  "devDependencies": {
+    "ajv": "^6.10.0",
+    "chai": "^4.1.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "sequelize-mock": "^0.10.2",
+    "sequelize-test-helpers": "^1.1.2",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-istanbul": "^5.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-node6": "^11.0.0",
+    "babel-register": "^6.26.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "config": "^3.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.6.1",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.11.0",
+    "pm2": "^3.5.1",
+    "sequelize": "^5.9.0",
+    "swagger-ui-express": "^4.0.6",
+    "travis": "^0.1.1"
+  }
+}
