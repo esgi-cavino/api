@@ -1,8 +1,10 @@
-import favouriteRegionServices from '../../../modules/favouriteRegion/services';
+import LinkTableServices from '../../../modules/linkTableServices';
+import { FavouriteRegion } from '../../../models';
 
 export default function (req, res, next) {
-  return favouriteRegionServices
-    .deleteOneByIdAndUserUUID(req.params.id, req.params.userUUID)
+  const services = new LinkTableServices(FavouriteRegion);
+  return services
+    .deleteOneByIdAndUserUUID({ id: req.params.id, userUUID: req.params.userUUID })
     .then(response => res.sendStatus(response))
     .catch(err => next(err));
 }
