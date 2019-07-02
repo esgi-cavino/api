@@ -2,15 +2,11 @@ import bcrypt from 'bcrypt';
 
 import userService from './modules/user/services';
 import cellarService from './modules/cellar/services';
-import wineTypeService from './modules/wineType/services';
-import regionService from './modules/region/services';
 import favouriteRegionService from './modules/favouriteRegion/services';
 import favouriteWineService from './modules/favouriteWine/services';
-import bottleService from './modules/bottle/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
 import countryService from './modules/country/services';
-import domainService from './modules/domain/services';
 import vintageService from './modules/vintage/services';
 
 import User from './models/user/user';
@@ -39,60 +35,12 @@ const getUserUUID = async () => {
   return (userUuid);
 };
 
-const getRegionId = async () => {
-  let regionId = '';
-  await Region.findOne({ offste: 0, limit: 1 }).then((region) => {
-    regionId = region.id;
+const getId = async (Model) => {
+  let id = '';
+  await Model.findOne({ offste: 0, limit: 1 }).then((model) => {
+    id = model.id;
   });
-  return (regionId);
-};
-
-const getWineTypeId = async () => {
-  let wineTypeId = '';
-  await WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
-    wineTypeId = wineType.id;
-  });
-  return (wineTypeId);
-};
-
-const getCountryId = async () => {
-  let countryId = '';
-  await Country.findOne({ offste: 0, limit: 1 }).then((country) => {
-    countryId = country.id;
-  });
-  return (countryId);
-};
-
-const getDomainId = async () => {
-  let domainId = '';
-  await Domain.findOne({ offste: 0, limit: 1 }).then((domain) => {
-    domainId = domain.id;
-  });
-  return (domainId);
-};
-
-const getVintageId = async () => {
-  let vintageId = '';
-  await Vintage.findOne({ offste: 0, limit: 1 }).then((vintage) => {
-    vintageId = vintage.id;
-  });
-  return (vintageId);
-};
-
-const getCellarId = async () => {
-  let cellarId = '';
-  await Cellar.findOne({ offste: 0, limit: 1 }).then((cellar) => {
-    cellarId = cellar.id;
-  });
-  return (cellarId);
-};
-
-const getBottleId = async () => {
-  let bottleId = '';
-  await Bottle.findOne({ offste: 0, limit: 1 }).then((bottle) => {
-    bottleId = bottle.id;
-  });
-  return (bottleId);
+  return (id);
 };
 
 const createUsers = async () => {
@@ -218,7 +166,7 @@ const createVintages = async () => {
 
 const createFavouriteRegions = async () => {
   const userUuid = await getUserUUID();
-  const regionId = await getRegionId();
+  const regionId = await getId(Region);
   await FavouriteRegion.sync({ force: true });
 
   await favouriteRegionService.create({
@@ -230,7 +178,7 @@ const createFavouriteRegions = async () => {
 
 const createFavouriteWines = async () => {
   const userUuid = await getUserUUID();
-  const wineTypeId = await getWineTypeId();
+  const wineTypeId = await getId(WineType);
 
   await FavouriteWine.sync({ force: true });
 
@@ -242,11 +190,11 @@ const createFavouriteWines = async () => {
 
 const createBottles = async () => {
 
-  const wineTypeId = await getWineTypeId();
-  const regionId = await getRegionId();
-  const countryId = await getCountryId();
-  const domainId = await getDomainId();
-  const vintageId = await getVintageId();
+  const wineTypeId = await getId(WineType);
+  const regionId = await getId(Region);
+  const countryId = await getId(Country);
+  const domainId = await getId(Domain);
+  const vintageId = await getId(Vintage);
   await Bottle.sync({ force: true });
 
   await Bottle.bulkCreate([{
@@ -274,8 +222,8 @@ const createBottles = async () => {
 };
 
 const createQuantityInCellars = async () => {
-  const cellarId = await getCellarId();
-  const bottleId = await getBottleId();
+  const cellarId = await getId(Cellar);
+  const bottleId = await getId(Bottle);
   await QuantityInCellar.sync({ force: true });
 
   await quantityInCellarService.create({
@@ -286,8 +234,8 @@ const createQuantityInCellars = async () => {
 };
 
 const createPositionInCellars = async () => {
-  const cellarId = await getCellarId();
-  const bottleId = await getBottleId();
+  const cellarId = await getId(Cellar);
+  const bottleId = await getId(Bottle);
   await PositionInCellar.sync({ force: true });
 
   await positionInCellarService.create({
