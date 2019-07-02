@@ -42,10 +42,14 @@ const getId = async (Model) => {
   return (id);
 };
 
+const createUser = async (object) => {
+  await userService.create(object);
+};
+
 const createUsers = async () => {
   await User.sync({ force: true });
 
-  await userService.create({
+  await createUser({
     firstname: 'Admin',
     lastname: 'Istrator',
     email: 'admin@cavino.fr',
@@ -55,7 +59,7 @@ const createUsers = async () => {
     isAdmin: true,
   });
 
-  await userService.create({
+  await createUser({
     firstname: 'Seller',
     lastname: 'Man',
     email: 'seller@corporation.com',
@@ -65,11 +69,8 @@ const createUsers = async () => {
     isSeller: true,
   });
 
-  await userService.create({
-    firstname: 'firstname',
-    lastname: 'lastname',
-    email: userEmail,
-    password: userPassword,
+  await createUser({
+    firstname: 'firstname', lastname: 'lastname', email: userEmail, password: userPassword,
   });
 };
 
@@ -105,25 +106,25 @@ const createVintages = async () => {
 
 const createFavouriteRegions = async () => {
   const userUuid = await getUserUUID();
-  const regionId = await getId(Region);
+  const id = await getId(Region);
   await FavouriteRegion.sync({ force: true });
 
   await favouriteRegionService.create({
     userUUID: userUuid,
-    regionId,
+    regionId: id,
   });
 };
 
 
 const createFavouriteWines = async () => {
   const userUuid = await getUserUUID();
-  const wineTypeId = await getId(WineType);
+  const id = await getId(WineType);
 
   await FavouriteWine.sync({ force: true });
 
   await favouriteWineService.create({
     userUUID: userUuid,
-    wineTypeId,
+    wineTypeId: id,
   });
 };
 
@@ -148,15 +149,7 @@ const createBottles = async () => {
     domainId,
     vintageId,
   }, {
-    name: 'Bottle n°2',
-    description: 'BIO Wine',
-    price: 49.99,
-    isOrganic: true,
-    wineTypeId,
-    regionId,
-    countryId,
-    domainId,
-    vintageId,
+    name: 'Bottle n°2', description: 'BIO Wine', price: 49.99, isOrganic: true, wineTypeId, regionId, countryId, domainId, vintageId,
   }]);
 };
 
