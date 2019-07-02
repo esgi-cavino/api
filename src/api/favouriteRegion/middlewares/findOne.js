@@ -1,7 +1,9 @@
-import favouriteRegionServices from '../../../modules/favouriteRegion/services';
+import Service from '../../../modules/defaultModelCRUDServices';
+import { FavouriteRegion } from '../../../models';
 
 export default function (req, res, next) {
-  return favouriteRegionServices
+  const services = new Service(FavouriteRegion);
+  return services
     .findOne(req.params.id)
     .then(response => res.send(response))
     .catch(err => next(err));

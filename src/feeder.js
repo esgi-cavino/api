@@ -2,10 +2,9 @@ import bcrypt from 'bcrypt';
 
 import userService from './modules/user/services';
 import cellarService from './modules/cellar/services';
-import favouriteRegionService from './modules/favouriteRegion/services';
-import favouriteWineService from './modules/favouriteWine/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
+import CRUDServices from './modules/defaultModelCRUDServices';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -106,7 +105,8 @@ const createFavouriteRegions = async () => {
   const regionId = await getId(Region);
   await FavouriteRegion.sync({ force: true });
 
-  await favouriteRegionService.create({
+  const services = new CRUDServices(FavouriteRegion);
+  await services.create({
     userUUID: userUuid,
     regionId,
   });
@@ -119,7 +119,8 @@ const createFavouriteWines = async () => {
 
   await FavouriteWine.sync({ force: true });
 
-  await favouriteWineService.create({
+  const services = new CRUDServices(FavouriteWine);
+  await services.create({
     userUUID: userUuid,
     wineTypeId,
   });
