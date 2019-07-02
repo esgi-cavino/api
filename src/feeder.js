@@ -29,6 +29,72 @@ import Vintage from './models/vintage/vintage';
 const userEmail = 'e@mail.com';
 const userPassword = 'password';
 
+const getUserUUID = async () => {
+  let userUuid = '';
+  await User.findOne({ where: { email: userEmail } }).then((user) => {
+    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
+      userUuid = user.uuid;
+    }
+  });
+  return (userUuid);
+};
+
+const getRegionId = async () => {
+  let regionId = '';
+  await Region.findOne({ offste: 0, limit: 1 }).then((region) => {
+    regionId = region.id;
+  });
+  return (regionId);
+};
+
+const getWineTypeId = async () => {
+  let wineTypeId = '';
+  await WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
+    wineTypeId = wineType.id;
+  });
+  return (wineTypeId);
+};
+
+const getCountryId = async () => {
+  let countryId = '';
+  await Country.findOne({ offste: 0, limit: 1 }).then((country) => {
+    countryId = country.id;
+  });
+  return (countryId);
+};
+
+const getDomainId = async () => {
+  let domainId = '';
+  await Domain.findOne({ offste: 0, limit: 1 }).then((domain) => {
+    domainId = domain.id;
+  });
+  return (domainId);
+};
+
+const getVintageId = async () => {
+  let vintageId = '';
+  await Vintage.findOne({ offste: 0, limit: 1 }).then((vintage) => {
+    vintageId = vintage.id;
+  });
+  return (vintageId);
+};
+
+const getCellarId = async () => {
+  let cellarId = '';
+  await Cellar.findOne({ offste: 0, limit: 1 }).then((cellar) => {
+    cellarId = cellar.id;
+  });
+  return (cellarId);
+};
+
+const getBottleId = async () => {
+  let bottleId = '';
+  await Bottle.findOne({ offste: 0, limit: 1 }).then((bottle) => {
+    bottleId = bottle.id;
+  });
+  return (bottleId);
+};
+
 const createUsers = async () => {
   await User.sync({ force: true });
 
@@ -61,13 +127,7 @@ const createUsers = async () => {
 };
 
 const createCellars = async () => {
-  let userUuid = '';
-  User.findOne({ where: { email: userEmail } }).then((user) => {
-    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
-      userUuid = user.uuid;
-    }
-  });
-
+  const userUuid = await getUserUUID();
   await Cellar.sync({ force: true });
 
   await cellarService.create({
@@ -81,73 +141,45 @@ const createCellars = async () => {
 const createWineTypes = async () => {
   await WineType.sync({ force: true });
 
-  await wineTypeService.create({
+  await WineType.bulkCreate([{
     name: 'Blanc',
-  });
-
-  await wineTypeService.create({
+  }, {
     name: 'Rosé',
-  });
+  }]);
 };
 
 const createRegions = async () => {
   await Region.sync({ force: true });
 
-  await regionService.create({
+  await Region.bulkCreate([{
     name: 'Alsace',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Beaujolais',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Bordeaux',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Bourgogne',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Champagne',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Corse',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Jura',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Languedoc-Roussillon',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Loire',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Provence',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Valée du rône',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Savoie-Bugey',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Sud-ouest',
-  });
-
-  await regionService.create({
+  }, {
     name: 'Moselle',
-  });
+  }]);
 };
 
 const createCountrys = async () => {
@@ -165,13 +197,11 @@ const createCountrys = async () => {
 const createDomains = async () => {
   await Domain.sync({ force: true });
 
-  await domainService.create({
+  await Domain.bulkCreate([{
     name: 'Château d\'Agassac',
-  });
-
-  await domainService.create({
+  }, {
     name: 'Château Lagrange',
-  });
+  }]);
 };
 
 const createVintages = async () => {
@@ -187,17 +217,8 @@ const createVintages = async () => {
 };
 
 const createFavouriteRegions = async () => {
-  let userUuid;
-  User.findOne({ where: { email: userEmail } }).then((user) => {
-    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
-      userUuid = user.uuid;
-    }
-  });
-  let regionId = '';
-  Region.findOne({ offste: 0, limit: 1 }).then((region) => {
-    regionId = region.id;
-  });
-
+  const userUuid = await getUserUUID();
+  const regionId = await getRegionId();
   await FavouriteRegion.sync({ force: true });
 
   await favouriteRegionService.create({
@@ -208,16 +229,8 @@ const createFavouriteRegions = async () => {
 
 
 const createFavouriteWines = async () => {
-  let userUuid;
-  User.findOne({ where: { email: userEmail } }).then((user) => {
-    if (bcrypt.hashSync(userPassword, user.salt) === user.password) {
-      userUuid = user.uuid;
-    }
-  });
-  let wineTypeId = '';
-  WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
-    wineTypeId = wineType.id;
-  });
+  const userUuid = await getUserUUID();
+  const wineTypeId = await getWineTypeId();
 
   await FavouriteWine.sync({ force: true });
 
@@ -227,36 +240,16 @@ const createFavouriteWines = async () => {
   });
 };
 
-
 const createBottles = async () => {
-  let wineTypeId = '';
-  WineType.findOne({ offste: 0, limit: 1 }).then((wineType) => {
-    wineTypeId = wineType.id;
-  });
 
-  let regionId = '';
-  Region.findOne({ offste: 0, limit: 1 }).then((region) => {
-    regionId = region.id;
-  });
-
-  let countryId = '';
-  Country.findOne({ offste: 0, limit: 1 }).then((country) => {
-    countryId = country.id;
-  });
-
-  let domainId = '';
-  Domain.findOne({ offste: 0, limit: 1 }).then((domain) => {
-    domainId = domain.id;
-  });
-
-  let vintageId = '';
-  Vintage.findOne({ offste: 0, limit: 1 }).then((vintage) => {
-    vintageId = vintage.id;
-  });
-
+  const wineTypeId = await getWineTypeId();
+  const regionId = await getRegionId();
+  const countryId = await getCountryId();
+  const domainId = await getDomainId();
+  const vintageId = await getVintageId();
   await Bottle.sync({ force: true });
 
-  await bottleService.create({
+  await Bottle.bulkCreate([{
     name: 'Bottle n°1',
     description: 'Bottle with wine type Alsace ?',
     price: 32.6,
@@ -267,9 +260,7 @@ const createBottles = async () => {
     countryId,
     domainId,
     vintageId,
-  });
-
-  await bottleService.create({
+  }, {
     name: 'Bottle n°2',
     description: 'BIO Wine',
     price: 49.99,
@@ -279,19 +270,12 @@ const createBottles = async () => {
     countryId,
     domainId,
     vintageId,
-  });
+  }]);
 };
 
 const createQuantityInCellars = async () => {
-  let cellarId;
-  Cellar.findOne({ offste: 0, limit: 1 }).then((cellar) => {
-    cellarId = cellar.id;
-  });
-  let bottleId;
-  Bottle.findOne({ offste: 0, limit: 1 }).then((bottle) => {
-    bottleId = bottle.id;
-  });
-
+  const cellarId = await getCellarId();
+  const bottleId = await getBottleId();
   await QuantityInCellar.sync({ force: true });
 
   await quantityInCellarService.create({
@@ -302,15 +286,8 @@ const createQuantityInCellars = async () => {
 };
 
 const createPositionInCellars = async () => {
-  let cellarId;
-  Cellar.findOne({ offste: 0, limit: 1 }).then((cellar) => {
-    cellarId = cellar.id;
-  });
-  let bottleId;
-  Bottle.findOne({ offste: 0, limit: 1 }).then((bottle) => {
-    bottleId = bottle.id;
-  });
-
+  const cellarId = await getCellarId();
+  const bottleId = await getBottleId();
   await PositionInCellar.sync({ force: true });
 
   await positionInCellarService.create({
