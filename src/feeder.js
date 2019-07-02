@@ -6,7 +6,6 @@ import favouriteRegionService from './modules/favouriteRegion/services';
 import favouriteWineService from './modules/favouriteWine/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
-import countryService from './modules/country/services';
 import vintageService from './modules/vintage/services';
 
 import User from './models/user/user';
@@ -86,70 +85,10 @@ const createCellars = async () => {
   });
 };
 
-const createWineTypes = async () => {
-  await WineType.sync({ force: true });
+const createSimpleTables = async (Model, list) => {
+  await Model.sync({ force: true });
 
-  await WineType.bulkCreate([{
-    name: 'Blanc',
-  }, {
-    name: 'Rosé',
-  }]);
-};
-
-const createRegions = async () => {
-  await Region.sync({ force: true });
-
-  await Region.bulkCreate([{
-    name: 'Alsace',
-  }, {
-    name: 'Beaujolais',
-  }, {
-    name: 'Bordeaux',
-  }, {
-    name: 'Bourgogne',
-  }, {
-    name: 'Champagne',
-  }, {
-    name: 'Corse',
-  }, {
-    name: 'Jura',
-  }, {
-    name: 'Languedoc-Roussillon',
-  }, {
-    name: 'Loire',
-  }, {
-    name: 'Provence',
-  }, {
-    name: 'Valée du rône',
-  }, {
-    name: 'Savoie-Bugey',
-  }, {
-    name: 'Sud-ouest',
-  }, {
-    name: 'Moselle',
-  }]);
-};
-
-const createCountrys = async () => {
-  await Country.sync({ force: true });
-
-  await countryService.create({
-    name: 'France',
-  });
-
-  await countryService.create({
-    name: 'Allemagne',
-  });
-};
-
-const createDomains = async () => {
-  await Domain.sync({ force: true });
-
-  await Domain.bulkCreate([{
-    name: 'Château d\'Agassac',
-  }, {
-    name: 'Château Lagrange',
-  }]);
+  await Model.bulkCreate(list);
 };
 
 const createVintages = async () => {
@@ -256,10 +195,15 @@ const createPositionInCellars = async () => {
 export default async () => {
   await createUsers();
   await createCellars();
-  await createWineTypes();
-  await createRegions();
-  await createCountrys();
-  await createDomains();
+  await createSimpleTables(WineType, [{ name: 'Blanc' }, { name: 'Rosé' }]);
+  await createSimpleTables(Region, [{ name: 'Alsace' }, { name: 'Beaujolais' },
+    { name: 'Bordeaux' }, { name: 'Bourgogne' }, { name: 'Champagne' },
+    { name: 'Corse' }, { name: 'Jura' }, { name: 'Languedoc-Roussillon' },
+    { name: 'Loire' }, { name: 'Provence' }, { name: 'Valée du rône' },
+    { name: 'Savoie-Bugey' }, { name: 'Sud-ouest' }, { name: 'Moselle' }]);
+  await createSimpleTables(Country, [{ name: 'France' }, { name: 'Allemagne' }]);
+  await createSimpleTables(Domain, [{ name: 'Château d\'Agassac' },
+    { name: 'Château Lagrange' }]);
   await createVintages();
   await createFavouriteRegions();
   await createFavouriteWines();
