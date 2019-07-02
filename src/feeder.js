@@ -6,7 +6,6 @@ import favouriteRegionService from './modules/favouriteRegion/services';
 import favouriteWineService from './modules/favouriteWine/services';
 import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
-import vintageService from './modules/vintage/services';
 
 import User from './models/user/user';
 import Cellar from './models/cellar/cellar';
@@ -46,28 +45,28 @@ const createUser = async (object) => {
   await userService.create(object);
 };
 
+const createUserWithAllOptions = async (firstname, lastname, email, password, age, address,
+  isSeller, isAdmin) => {
+  await createUser({
+    firstname,
+    lastname,
+    email,
+    password,
+    age,
+    address,
+    isSeller,
+    isAdmin,
+  });
+};
+
 const createUsers = async () => {
   await User.sync({ force: true });
 
-  await createUser({
-    firstname: 'Admin',
-    lastname: 'Istrator',
-    email: 'admin@cavino.fr',
-    password: 'admin',
-    age: 45,
-    address: 'Paris (France)',
-    isAdmin: true,
-  });
+  await createUserWithAllOptions('Admin', 'Istrator', 'admin@cavino.fr', 'admin', 45,
+    'Paris (France)', false, true);
 
-  await createUser({
-    firstname: 'Seller',
-    lastname: 'Man',
-    email: 'seller@corporation.com',
-    password: 'seller',
-    age: 34,
-    address: '47 private road, NY City (USA)',
-    isSeller: true,
-  });
+  await createUserWithAllOptions('Seller', 'Man', 'seller@corporation.com', 'seller', 34,
+    '47 private road, NY City (USA)', true, false);
 
   await createUser({
     firstname: 'firstname', lastname: 'lastname', email: userEmail, password: userPassword,
@@ -95,36 +94,34 @@ const createSimpleTables = async (Model, list) => {
 const createVintages = async () => {
   await Vintage.sync({ force: true });
 
-  await vintageService.create({
+  await Vintage.bulkCreate([{
     year: 2018,
-  });
-
-  await vintageService.create({
+  }, {
     year: 2019,
-  });
+  }]);
 };
 
 const createFavouriteRegions = async () => {
   const userUuid = await getUserUUID();
-  const id = await getId(Region);
+  const regionId = await getId(Region);
   await FavouriteRegion.sync({ force: true });
 
   await favouriteRegionService.create({
     userUUID: userUuid,
-    regionId: id,
+    regionId,
   });
 };
 
 
 const createFavouriteWines = async () => {
   const userUuid = await getUserUUID();
-  const id = await getId(WineType);
+  const wineTypeId = await getId(WineType);
 
   await FavouriteWine.sync({ force: true });
 
   await favouriteWineService.create({
     userUUID: userUuid,
-    wineTypeId: id,
+    wineTypeId,
   });
 };
 
