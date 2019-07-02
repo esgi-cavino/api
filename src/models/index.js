@@ -5,7 +5,6 @@ import Region from './region/region';
 import FavouriteRegion from './favouriteRegion/favouriteRegion';
 import FavouriteWine from './favouriteWine/favouriteWine';
 import Bottle from './bottle/bottle';
-import QuantityInCellar from './quantityInCellar/quantityInCellar';
 import PositionInCellar from './positionInCellar/positionInCellar';
 import Country from './country/country';
 import Domain from './domain/domain';
@@ -21,7 +20,6 @@ if (process.env.syncModels === 'true' && process.env.feed !== 'true') {
   FavouriteRegion.sync({ force: true });
   FavouriteWine.sync({ force: true });
   Bottle.sync({ force: true });
-  QuantityInCellar.sync({ force: true });
   PositionInCellar.sync({ force: true });
   Country.sync({ force: true });
   Domain.sync({ force: true });
@@ -54,34 +52,7 @@ WineType.belongsToMany(User, {
   foreignKey: 'wineTypeId',
   through: FavouriteWine,
 });
-/* WineType.hasMany(Bottle, {
-  onDelete: 'CASCADE',
-  foreignKey: 'wineTypeId',
-}); */
 
-/* Cellar.belongsToMany(Bottle, {
-  onDelete: 'CASCADE',
-  foreignKey: 'cellarId',
-  through: QuantityInCellar,
-}); */
-
-
-/* * Cellar.belongsToMany(Bottle, {
-  onDelete: 'CASCADE',
-  foreignKey: 'cellarId',
-  through: PositionInCellar,
-}); * */
-
-/* Bottle.belongsToMany(Cellar, {
-  onDelete: 'CASCADE',
-  foreignKey: 'bottleId',
-  through: QuantityInCellar,
-}); */
-/* * Bottle.belongsToMany(Cellar, {
-  onDelete: 'CASCADE',
-  foreignKey: 'bottleId',
-  through: PositionInCellar,
-}); * */
 Bottle.belongsTo(WineType, {
   foreignKey: 'wineTypeId',
 });
@@ -104,10 +75,7 @@ PositionInCellar.belongsTo(Cellar, {
 PositionInCellar.belongsTo(Bottle, {
   foreignKey: 'bottleId',
 });
-/* PositionInCellar.belongsTo(Domain, {
-  foreignKey: 'domainId',
-}); */
 
 export {
-  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, QuantityInCellar, PositionInCellar, Country, Domain, Vintage,
+  User, Cellar, WineType, Region, FavouriteRegion, FavouriteWine, Bottle, PositionInCellar, Country, Domain, Vintage,
 };

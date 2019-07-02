@@ -1,9 +1,6 @@
 import {
-  User, FavouriteRegion, Region, WineType,
+  User, Region, WineType,
 } from '../../models';
-
-
-
 
 class UserService {
   constructor(collectionName) {
@@ -40,24 +37,12 @@ class UserService {
     });
   }
 
-  async findAllSeller(offset = 20, limit = 0) {
+  async findAllSellerOrAdmin(offset = 20, limit = 0, condition) {
     return User.findAll({
       attributes: { exclude: ['id', 'password', 'salt'] },
       offset,
       limit,
-      where: { isSeller: true },
-    }).then((res, err) => {
-      if (err) throw err;
-      return res;
-    });
-  }
-
-  async findAllAdmin(offset = 20, limit = 0) {
-    return User.findAll({
-      attributes: { exclude: ['id', 'password', 'salt'] },
-      offset,
-      limit,
-      where: { isAdmin: true },
+      where: condition,
     }).then((res, err) => {
       if (err) throw err;
       return res;

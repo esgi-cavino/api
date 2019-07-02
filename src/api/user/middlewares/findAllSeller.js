@@ -7,7 +7,7 @@ export default function (req, res, next) {
   } = req.query;
 
   return userServices
-    .findAllSeller(parseInt(offset, 10), parseInt(limit, 10))
+    .findAllSellerOrAdmin(parseInt(offset, 10), parseInt(limit, 10), { isSeller: true })
     .then(response => res.send(response))
     .catch(err => next(err));
 }

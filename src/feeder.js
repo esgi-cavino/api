@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 
 import userService from './modules/user/services';
 import cellarService from './modules/cellar/services';
-import quantityInCellarService from './modules/quantityInCellar/services';
 import positionInCellarService from './modules/positionInCellar/services';
 import CRUDServices from './modules/defaultModelCRUDServices';
 
@@ -13,7 +12,6 @@ import Region from './models/region/region';
 import FavouriteRegion from './models/favouriteRegion/favouriteRegion';
 import FavouriteWine from './models/favouriteWine/favouriteWine';
 import Bottle from './models/bottle/bottle';
-import QuantityInCellar from './models/quantityInCellar/quantityInCellar';
 import PositionInCellar from './models/positionInCellar/positionInCellar';
 import Country from './models/country/country';
 import Domain from './models/domain/domain';
@@ -151,18 +149,6 @@ const createBottles = async () => {
   }]);
 };
 
-const createQuantityInCellars = async () => {
-  const cellarId = await getId(Cellar);
-  const bottleId = await getId(Bottle);
-  await QuantityInCellar.sync({ force: true });
-
-  await quantityInCellarService.create({
-    cellarId,
-    bottleId,
-    quantity: 2,
-  });
-};
-
 const createPositionInCellars = async () => {
   const cellarId = await getId(Cellar);
   const bottleId = await getId(Bottle);
@@ -199,6 +185,5 @@ export default async () => {
   await createFavouriteRegions();
   await createFavouriteWines();
   await createBottles();
-  await createQuantityInCellars();
   await createPositionInCellars();
 };
