@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
-import morgan from 'morgan';
-import fs from 'fs';
+// import morgan from 'morgan';
+// import fs from 'fs';
 import passport from 'passport';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import swaggerUi from 'swagger-ui-express';
@@ -38,7 +38,7 @@ if (process.env.allow_CORS === 'true') {
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(morgan('combined', { stream: fs.createWriteStream('./logs/access.log', { flags: 'a' }) }));
+// app.use(morgan('combined', { stream: fs.createWriteStream('./logs/access.log', { flags: 'a' }) }));
 
 // Passport JWT configuration
 passport.use('auth-rule', new JWTStrategy(
