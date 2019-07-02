@@ -1,7 +1,9 @@
-import regionServices from '../../../modules/region/services';
+import Service from '../../../modules/defaultModelCRUDServices';
+import { Region } from '../../../models';
 
 export default function (req, res, next) {
-  return regionServices
+  const services = new Service(Region);
+  return services
     .deleteOne(req.params.id)
     .then(response => res.sendStatus(response))
     .catch(err => next(err));

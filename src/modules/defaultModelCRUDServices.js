@@ -1,19 +1,17 @@
-import { Domain } from '../../models';
-
-class DomainService {
-  constructor(collectionName) {
-    this.COLLECTION_NAME = collectionName;
+class Service {
+  constructor(model) {
+    this.Model = model;
   }
 
   async create(data) {
-    return Domain.create(data).then((res, err) => {
+    return this.Model.create(data).then((res, err) => {
       if (err) throw err;
       return res;
     });
   }
 
   async getAll(offset = 20, limit = 0) {
-    return Domain.findAll({
+    return this.Model.findAll({
       offset,
       limit,
     }).then((res, err) => {
@@ -23,7 +21,7 @@ class DomainService {
   }
 
   async findOne(id) {
-    return Domain.findOne({
+    return this.Model.findOne({
       where: { id },
     }).then((res, err) => {
       if (err) throw err;
@@ -32,7 +30,7 @@ class DomainService {
   }
 
   async updateOne(id, data) {
-    return Domain.update(data, {
+    return this.Model.update(data, {
       where: {
         id,
       },
@@ -43,7 +41,7 @@ class DomainService {
   }
 
   async deleteOne(id) {
-    return Domain.destroy({
+    return this.Model.destroy({
       where: {
         id,
       },
@@ -57,4 +55,4 @@ class DomainService {
   }
 }
 
-export default new DomainService('domain');
+export default Service;

@@ -1,4 +1,5 @@
-import regionServices from '../../../modules/region/services';
+import Service from '../../../modules/defaultModelCRUDServices';
+import { Region } from '../../../models';
 
 export default function (req, res, next) {
   const {
@@ -6,7 +7,8 @@ export default function (req, res, next) {
     limit,
   } = req.query;
 
-  return regionServices
+  const services = new Service(Region);
+  return services
     .getAll(parseInt(offset, 10), parseInt(limit, 10))
     .then(response => res.send(response))
     .catch(err => next(err));

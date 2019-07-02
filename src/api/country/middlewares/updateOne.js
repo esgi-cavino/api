@@ -1,7 +1,9 @@
-import countryServices from '../../../modules/country/services';
+import Service from '../../../modules/defaultModelCRUDServices';
+import { Country } from '../../../models';
 
 export default function (req, res, next) {
-  return countryServices
+  const services = new Service(Country);
+  return services
     .updateOne(req.params.id, req.body)
     .then(response => res.send(response))
     .catch(err => next(err));
