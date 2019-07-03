@@ -1,10 +1,9 @@
 import Service from '../../../modules/defaultModelCRUDServices';
-import { Vintage } from '../../../models';
 
-export default function (req, res, next) {
-  const services = new Service(Vintage);
+export default function (Model, req, res, next) {
+  const services = new Service(Model);
   return services
-    .findOne(req.params.id)
+    .create(req.body)
     .then(response => res.send(response))
     .catch(err => next(err));
 }
