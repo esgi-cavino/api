@@ -1,10 +1,15 @@
 import {
- Bottle, WineType, Region, Country, Domain, Vintage 
+  Bottle, WineType, Region, Country, Domain, Vintage,
 } from '../../models';
 
 class BottleService {
   constructor(collectionName) {
     this.COLLECTION_NAME = collectionName;
+    this.includes = [{ model: WineType, attributes: ['name'] },
+      { model: Region, attributes: ['name'] },
+      { model: Country, attributes: ['name'] },
+      { model: Domain, attributes: ['name'] },
+      { model: Vintage, attributes: ['year'] }];
   }
 
   async create(data) {
@@ -16,22 +21,7 @@ class BottleService {
 
   async getAll(offset = 20, limit = 0) {
     return Bottle.findAll({
-      include: [{
-        model: WineType,
-        attributes: ['name'],
-      }, {
-        model: Region,
-        attributes: ['name'],
-      }, {
-        model: Country,
-        attributes: ['name'],
-      }, {
-        model: Domain,
-        attributes: ['name'],
-      }, {
-        model: Vintage,
-        attributes: ['year'],
-      }],
+      include: this.includes,
       attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
       offset,
       limit,
@@ -43,22 +33,7 @@ class BottleService {
 
   async findOne(id) {
     return Bottle.findOne({
-      include: [{
-        model: WineType,
-        attributes: ['name'],
-      }, {
-        model: Region,
-        attributes: ['name'],
-      }, {
-        model: Country,
-        attributes: ['name'],
-      }, {
-        model: Domain,
-        attributes: ['name'],
-      }, {
-        model: Vintage,
-        attributes: ['year'],
-      }],
+      include: this.includes,
       where: { id },
       attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
     }).then((res, err) => {
