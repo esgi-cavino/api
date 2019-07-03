@@ -100,7 +100,7 @@ const createVintages = async () => {
 const createFavourites = async (Model, data) => {
   data.userUUID = await getUserUUID();
 
-  await FavouriteWine.sync({ force: true });
+  await Model.sync({ force: true });
 
   const services = new CRUDServices(Model);
   await services.create(data);
