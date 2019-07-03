@@ -98,30 +98,13 @@ const createVintages = async () => {
   }]);
 };
 
-const createFavouriteRegions = async () => {
-  const userUuid = await getUserUUID();
-  const regionId = await getId(Region);
-  await FavouriteRegion.sync({ force: true });
-
-  const services = new CRUDServices(FavouriteRegion);
-  await services.create({
-    userUUID: userUuid,
-    regionId,
-  });
-};
-
-
-const createFavouriteWines = async () => {
-  const userUuid = await getUserUUID();
-  const wineTypeId = await getId(WineType);
+const createFavourites = async (Model, data) => {
+  data.userUUID = await getUserUUID();
 
   await FavouriteWine.sync({ force: true });
 
-  const services = new CRUDServices(FavouriteWine);
-  await services.create({
-    userUUID: userUuid,
-    wineTypeId,
-  });
+  const services = new CRUDServices(Model);
+  await services.create(data);
 };
 
 const createBottles = async () => {
@@ -182,8 +165,8 @@ export default async () => {
   await createSimpleTables(Domain, [{ name: 'Château d\'Agassac' },
     { name: 'Château Lagrange' }]);
   await createVintages();
-  await createFavouriteRegions();
-  await createFavouriteWines();
+  await createFavourites(FavouriteRegion, { userUUID: '', regionId: await getId(Region) });
+  await createFavourites(FavouriteWine, { userUUID: '', wineTypeId: await getId(WineType) });
   await createBottles();
   await createPositionInCellars();
 };
