@@ -27,10 +27,10 @@ userAuthRouter.delete('/user/:uuid', deleteOne);
 
 userAuthRouter.get('/user/cellars/:uuid', getCellars);
 
-userAuthRouter.get('/user/favouriteRegions/:uuid', getFavourites.bind(null, Region, 'regions'));
+userAuthRouter.get('/user/favouriteRegions/:uuid', getFavourites.bind(null, { model: Region, param: 'regions' }));
 userAuthRouter.delete('/user/removeFavouriteRegion/:uuid/:id', removeFavouriteRegion);
 
-userAuthRouter.get('/user/favouriteWines/:uuid', getFavourites.bind(null, WineType, 'wineTypes'));
+userAuthRouter.get('/user/favouriteWines/:uuid', getFavourites.bind(null, { model: WineType, param: 'wineTypes' }));
 userAuthRouter.delete('/user/removeFavouriteWine/:uuid/:id', removeFavouriteWine);
 
 export { userRouter, userAuthRouter, userAdminRouter };
