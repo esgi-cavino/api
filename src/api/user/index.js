@@ -8,9 +8,10 @@ import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
 import getCellars from '../cellar/middlewares/getByUserUUID';
 import getFavourites from './middlewares/getFavourites';
-import removeFavouriteRegion from '../favouriteRegion/middlewares/removeFavouriteRegion';
-import removeFavouriteWine from '../favouriteWine/middlewares/removeFavouriteWine';
-import { Region, WineType } from '../../models';
+import removeFavourite from '../middleware/DeleteLinkTables/removeFavourite';
+import {
+  Region, WineType, FavouriteRegion, FavouriteWine,
+} from '../../models';
 
 const userRouter = Router();
 const userAuthRouter = Router();
@@ -27,9 +28,13 @@ userAuthRouter.delete('/user/:uuid', deleteOne);
 userAuthRouter.get('/user/cellars/:uuid', getCellars);
 
 userAuthRouter.get('/user/favouriteRegions/:uuid', getFavourites.bind(null, { model: Region, param: 'regions' }));
-userAuthRouter.delete('/user/removeFavouriteRegion/:uuid/:id', removeFavouriteRegion);
+userAuthRouter.delete('/user/removeFavouriteRegion/:uuid/:id', removeFavourite.bind(null, {
+  Model: FavouriteRegion, param: { userUUID: '', regionId: 0 },
+}));
 
 userAuthRouter.get('/user/favouriteWines/:uuid', getFavourites.bind(null, { model: WineType, param: 'wineTypes' }));
-userAuthRouter.delete('/user/removeFavouriteWine/:uuid/:id', removeFavouriteWine);
+userAuthRouter.delete('/user/removeFavouriteWine/:uuid/:id', removeFavourite.bind(null, {
+  Model: FavouriteWine, param: { userUUID: '', wineTypeId: 0 },
+}));
 
 export { userRouter, userAuthRouter, userAdminRouter };

@@ -5,7 +5,7 @@ import getAll from '../middleware/CRUD/getAll';
 import findOne from '../middleware/CRUD/findOne';
 import deleteOne from '../middleware/CRUD/deleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
-import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
+import deleteByIdAndUserUUID from '../middleware/DeleteLinkTables/deleteByIdAndUserUUID';
 import { FavouriteWine } from '../../models';
 
 const favouriteWineRouter = Router();
@@ -22,7 +22,7 @@ favouriteWineAuthRouter.patch(`${table}/:id`, updateOne.bind(null, FavouriteWine
 
 favouriteWineAuthRouter.post(`${table}`, create.bind(null, FavouriteWine));
 
-favouriteWineAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
+favouriteWineAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID.bind(null, FavouriteWine));
 
 favouriteWineAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, FavouriteWine));
 

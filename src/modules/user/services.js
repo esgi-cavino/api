@@ -1,5 +1,5 @@
 import {
-  User, Region, WineType,
+  User,
 } from '../../models';
 
 class UserService {

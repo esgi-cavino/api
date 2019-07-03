@@ -5,7 +5,7 @@ import getAll from '../middleware/CRUD/getAll';
 import findOne from '../middleware/CRUD/findOne';
 import deleteOne from '../middleware/CRUD/deleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
-import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
+import deleteByIdAndUserUUID from '../middleware/DeleteLinkTables/deleteByIdAndUserUUID';
 import { FavouriteRegion } from '../../models';
 
 const favouriteRegionRouter = Router();
@@ -22,7 +22,7 @@ favouriteRegionAuthRouter.patch(`${table}/:id`, updateOne.bind(null, FavouriteRe
 
 favouriteRegionAuthRouter.post(`${table}`, create.bind(null, FavouriteRegion));
 
-favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
+favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID.bind(null, FavouriteRegion));
 
 favouriteRegionAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, FavouriteRegion));
 
