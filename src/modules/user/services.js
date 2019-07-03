@@ -77,10 +77,10 @@ class UserService {
     });
   }
 
-  async getFavouriteRegions(uuid) {
+  async getFavourites(uuid, Model, param) {
     return User.findAll({
       include: [{
-        model: Region,
+        model: Model,
         through: {
           attributes: [],
           where: { userUUID: uuid },
@@ -88,22 +88,7 @@ class UserService {
       }],
     }).then((res, err) => {
       if (err) throw err;
-      return res[0].regions;
-    });
-  }
-
-  async getFavouriteWine(uuid) {
-    return User.findAll({
-      include: [{
-        model: WineType,
-        through: {
-          attributes: [],
-          where: { userUUID: uuid },
-        },
-      }],
-    }).then((res, err) => {
-      if (err) throw err;
-      return res[0].wineTypes;
+      return res[0][param];
     });
   }
 }
