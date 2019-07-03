@@ -2,7 +2,8 @@
 
 This is the API for the Cavino project.
 
-master [![Travis Build Status](https://badgen.net/travis/esgi-cavino/api?icon=travis)](https://travis-ci.org/esgi-cavino/api)
+master [![Last commit](https://badgen.net/github/last-commit/esgi-cavino/api)](https://github.com/esgi-cavino/api) [![Travis Build Status](https://badgen.net/travis/esgi-cavino/api?icon=travis)](https://travis-ci.org/esgi-cavino/api)
+
 develop [![Build Status](https://travis-ci.org/esgi-cavino/api.svg?branch=develop&)](https://travis-ci.org/esgi-cavino/api)
 
 

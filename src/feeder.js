@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 
 import userService from './modules/user/services';
-import cellarService from './modules/cellar/services';
 import CRUDServices from './modules/defaultModelCRUDServices';
 
 import User from './models/user/user';
@@ -73,7 +72,8 @@ const createCellars = async () => {
   const userUuid = await getUserUUID();
   await Cellar.sync({ force: true });
 
-  await cellarService.create({
+  const services = new CRUDServices(Cellar);
+  await services.create({
     name: 'TheCellar',
     width: 5,
     height: 5,

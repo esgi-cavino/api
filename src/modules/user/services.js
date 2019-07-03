@@ -8,22 +8,15 @@ class UserService {
   }
 
   async create(data) {
-    return User.create(data).then((res, err) => {
+    const user = await User.create(data).then((res, err) => {
       if (err) throw err;
-      const { uuid } = res;
-      const { firstname } = res;
-      const { lastname } = res;
-      const { email } = res;
-      const { createdAt } = res;
-      const { updatedAt } = res;
-      const { age } = res;
-      const { address } = res;
-      const { isSeller } = res;
-      const { isAdmin } = res;
-      return ({
-        uuid, firstname, lastname, email, age, address, isSeller, isAdmin, createdAt, updatedAt,
-      });
+      return res;
     });
+
+    delete user.dataValues.password;
+    delete user.dataValues.id;
+    delete user.dataValues.salt;
+    return user;
   }
 
   async getAll(offset = 20, limit = 0) {
