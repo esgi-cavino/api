@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 
 import userService from './modules/user/services';
 import cellarService from './modules/cellar/services';
-import positionInCellarService from './modules/positionInCellar/services';
 import CRUDServices from './modules/defaultModelCRUDServices';
 
 import User from './models/user/user';
@@ -137,19 +136,17 @@ const createPositionInCellars = async () => {
   const bottleId = await getId(Bottle);
   await PositionInCellar.sync({ force: true });
 
-  await positionInCellarService.create({
+  await PositionInCellar.bulkCreate([{
     cellarId,
     bottleId,
     positionX: 0,
     positionY: 0,
-  });
-
-  await positionInCellarService.create({
+  }, {
     cellarId,
     bottleId,
     positionX: 3,
     positionY: 3,
-  });
+  }]);
 };
 
 export default async () => {
