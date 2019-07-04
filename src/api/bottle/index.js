@@ -14,16 +14,17 @@ const bottleAuthRouter = Router();
 const bottleAdminRouter = Router();
 
 const table = '/bottle';
+const includes = [{ model: WineType, attributes: ['name'] },
+  { model: Region, attributes: ['name'] },
+  { model: Country, attributes: ['name'] },
+  { model: Domain, attributes: ['name'] },
+  { model: Vintage, attributes: ['year'] }];
 
 bottleAuthRouter.get(table, getAll.bind(null, {
   model: Bottle,
   options: {
     attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
-    include: [{ model: WineType, attributes: ['name'] },
-      { model: Region, attributes: ['name'] },
-      { model: Country, attributes: ['name'] },
-      { model: Domain, attributes: ['name'] },
-      { model: Vintage, attributes: ['year'] }],
+    include: includes,
   },
 }));
 
@@ -32,11 +33,7 @@ bottleAuthRouter.get(`${table}/:id`, findOne.bind(null, {
   options: {
     attributes: { exclude: ['wineTypeId', 'regionId', 'countryId', 'domainId', 'vintageId'] },
     where: { id: 0 },
-    include: [{ model: WineType, attributes: ['name'] },
-      { model: Region, attributes: ['name'] },
-      { model: Country, attributes: ['name'] },
-      { model: Domain, attributes: ['name'] },
-      { model: Vintage, attributes: ['year'] }],
+    include: includes,
   },
 }));
 
