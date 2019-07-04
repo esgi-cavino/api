@@ -19,33 +19,12 @@ class UserService {
     return user;
   }
 
-  async getAll(offset = 20, limit = 0) {
-    return User.findAll({
-      attributes: { exclude: ['id', 'password', 'salt'] },
-      offset,
-      limit,
-    }).then((res, err) => {
-      if (err) throw err;
-      return res;
-    });
-  }
-
   async findAllSellerOrAdmin(offset = 20, limit = 0, condition) {
     return User.findAll({
       attributes: { exclude: ['id', 'password', 'salt'] },
       offset,
       limit,
       where: condition,
-    }).then((res, err) => {
-      if (err) throw err;
-      return res;
-    });
-  }
-
-  async findOne(uuid) {
-    return User.findOne({
-      where: { uuid },
-      attributes: { exclude: ['id', 'password', 'salt'] },
     }).then((res, err) => {
       if (err) throw err;
       return res;

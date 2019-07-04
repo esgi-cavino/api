@@ -1,24 +1,33 @@
 import { Router } from 'express';
 
 import create from './middlewares/create';
-import getAll from './middlewares/getAll';
+import getAll from '../middleware/CRUDWithOptions/getAll';
 import findAllSellerOrAdmin from './middlewares/findAllSellerOrAdmin';
-import findOne from './middlewares/findOne';
+import findOne from '../middleware/CRUDWithOptions/findOne';
 import deleteOne from './middlewares/deleteOne';
 import updateOne from './middlewares/updateOne';
 import getCellars from '../cellar/middlewares/getByUserUUID';
 import getFavourites from './middlewares/getFavourites';
 import removeFavourite from '../middleware/DeleteLinkTables/removeFavourite';
 import {
-  Region, WineType, FavouriteRegion, FavouriteWine,
+  Region, WineType, FavouriteRegion, FavouriteWine, User,
 } from '../../models';
 
 const userRouter = Router();
 const userAuthRouter = Router();
 const userAdminRouter = Router();
 
-userAdminRouter.get('/user', getAll);
-userAuthRouter.get('/user/:uuid', findOne);
+userAdminRouter.get('/user', getAll.bind(null, {
+  model: User,
+  options: { attributes: { exclude: ['id', 'password', 'salt'] } },
+}));
+userAuthRouter.get('/user/:id', findOne.bind(null, {
+  model: User,
+  options: {
+    attributes: { exclude: ['id', 'password', 'salt'] },
+    where: { uuid: '' },
+  },
+}));
 userAuthRouter.get('/sellers', findAllSellerOrAdmin.bind(null, { isSeller: true }));
 userAdminRouter.get('/admins', findAllSellerOrAdmin.bind(null, { isAdmin: true }));
 userAuthRouter.patch('/user/:uuid', updateOne);
