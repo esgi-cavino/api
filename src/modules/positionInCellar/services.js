@@ -27,7 +27,22 @@ class PositionInCellarService {
     });
   }
 
-  async findByCellarIdAndPosition(cellarId, positionX, positionY) {
+  async findOrDeleteByCellarIdAndPosition(cellarId, positionX, positionY, isToDelete) {
+    if (isToDelete === true) {
+      return PositionInCellar.destroy({
+        where: {
+          cellarId,
+          positionX,
+          positionY,
+        },
+      }).then((res, err) => {
+        if (err) throw err;
+        if (res > 0) {
+          return 200;
+        }
+        return (404);
+      });
+    }
     return PositionInCellar.findOne({
       where: { cellarId, positionX, positionY },
     }).then((res, err) => {
@@ -35,23 +50,6 @@ class PositionInCellarService {
       return res;
     });
   }
-
-  async deleteOneByCellarIdAndPosition(cellarId, positionX, positionY) {
-    return PositionInCellar.destroy({
-      where: {
-        cellarId,
-        positionX,
-        positionY,
-      },
-    }).then((res, err) => {
-      if (err) throw err;
-      if (res > 0) {
-        return 200;
-      }
-      return (404);
-    });
-  }
-
 }
 
 export default new PositionInCellarService('positionInCellar');
