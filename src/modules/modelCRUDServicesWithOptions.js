@@ -6,12 +6,17 @@ class Service {
     this.where = options.where;
   }
 
-  /* async create(data) {
-    return this.Model.create(data).then((res, err) => {
+  async createUser(data) {
+    const user = await this.Model.create(data).then((res, err) => {
       if (err) throw err;
       return res;
     });
-  } */
+
+    delete user.dataValues.password;
+    delete user.dataValues.id;
+    delete user.dataValues.salt;
+    return user;
+  }
 
   async getAll(offset = 20, limit = 0) {
     const obj = {

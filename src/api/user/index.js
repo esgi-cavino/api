@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import create from './middlewares/create';
+import create from '../middleware/CRUDWithOptions/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
 import findAllSellerOrAdmin from './middlewares/findAllSellerOrAdmin';
 import findOne from '../middleware/CRUDWithOptions/findOne';
@@ -31,7 +31,10 @@ userAuthRouter.get('/user/:id', findOne.bind(null, {
 userAuthRouter.get('/sellers', findAllSellerOrAdmin.bind(null, { isSeller: true }));
 userAdminRouter.get('/admins', findAllSellerOrAdmin.bind(null, { isAdmin: true }));
 userAuthRouter.patch('/user/:uuid', updateOne);
-userAdminRouter.post('/user', create);
+userAdminRouter.post('/user', create.bind(null, {
+  model: User,
+  options: {},
+}));
 userAuthRouter.delete('/user/:uuid', deleteOne);
 
 userAuthRouter.get('/user/cellars/:uuid', getCellars);

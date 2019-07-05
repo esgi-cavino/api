@@ -7,18 +7,6 @@ class UserService {
     this.COLLECTION_NAME = collectionName;
   }
 
-  async create(data) {
-    const user = await User.create(data).then((res, err) => {
-      if (err) throw err;
-      return res;
-    });
-
-    delete user.dataValues.password;
-    delete user.dataValues.id;
-    delete user.dataValues.salt;
-    return user;
-  }
-
   async findAllSellerOrAdmin(offset = 20, limit = 0, condition) {
     return User.findAll({
       attributes: { exclude: ['id', 'password', 'salt'] },
