@@ -2,8 +2,7 @@ import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
-import findOne from '../middleware/CRUD/findOne';
-import deleteOne from '../middleware/CRUD/deleteOne';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
 import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
 import { Cellar } from '../../models';
@@ -19,7 +18,11 @@ cellarAdminRouter.get(table, getAll.bind(null, {
   options: {},
 }));
 
-cellarAuthRouter.get(`${table}/:id`, findOne.bind(null, Cellar));
+cellarAuthRouter.get(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: Cellar,
+    isToDelete: false,
+  }));
 
 cellarAuthRouter.patch(`${table}/:id`, updateOne.bind(null, Cellar));
 
@@ -27,6 +30,10 @@ cellarAuthRouter.post(`${table}`, create.bind(null, Cellar));
 
 cellarAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
 
-cellarAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, Cellar));
+cellarAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: Cellar,
+    isToDelete: true,
+  }));
 
 export { cellarRouter, cellarAuthRouter, cellarAdminRouter };

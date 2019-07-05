@@ -2,8 +2,7 @@ import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
-import findOne from '../middleware/CRUD/findOne';
-import deleteOne from '../middleware/CRUD/deleteOne';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
 import deleteByIdAndUserUUID from '../middleware/DeleteLinkTables/deleteByIdAndUserUUID';
 import { FavouriteWine } from '../../models';
@@ -19,7 +18,11 @@ favouriteWineAuthRouter.get(table, getAll.bind(null, {
   options: {},
 }));
 
-favouriteWineAuthRouter.get(`${table}/:id`, findOne.bind(null, FavouriteWine));
+favouriteWineAuthRouter.get(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteWine,
+    isToDelete: false,
+  }));
 
 favouriteWineAuthRouter.patch(`${table}/:id`, updateOne.bind(null, FavouriteWine));
 
@@ -27,6 +30,10 @@ favouriteWineAuthRouter.post(`${table}`, create.bind(null, FavouriteWine));
 
 favouriteWineAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID.bind(null, FavouriteWine));
 
-favouriteWineAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, FavouriteWine));
+favouriteWineAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteWine,
+    isToDelete: true,
+  }));
 
 export { favouriteWineRouter, favouriteWineAuthRouter, favouriteWineAdminRouter };

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import create from '../middleware/CRUD/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
 import findOne from '../middleware/CRUDWithOptions/findOne';
-import deleteOne from '../middleware/CRUD/deleteOne';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
 import {
   Bottle, WineType, Region, Country, Domain, Vintage,
@@ -41,6 +41,10 @@ bottleAuthRouter.patch(`${table}/:id`, updateOne.bind(null, Bottle));
 
 bottleAuthRouter.post(`${table}`, create.bind(null, Bottle));
 
-bottleAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, Bottle));
+bottleAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: Bottle,
+    isToDelete: true,
+  }));
 
 export { bottleRouter, bottleAuthRouter, bottleAdminRouter };

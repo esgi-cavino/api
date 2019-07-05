@@ -20,7 +20,20 @@ class Service {
     });
   }
 
-  async findOne(id) {
+  async findOrDeleteOne(id, isToDelete) {
+    if (isToDelete === true) {
+      return this.Model.destroy({
+        where: {
+          id,
+        },
+      }).then((res, err) => {
+        if (err) throw err;
+        if (res > 0) {
+          return 200;
+        }
+        return (404);
+      });
+    }
     return this.Model.findOne({
       where: { id },
     }).then((res, err) => {
@@ -37,20 +50,6 @@ class Service {
     }).then((res, err) => {
       if (err) throw err;
       return res;
-    });
-  }
-
-  async deleteOne(id) {
-    return this.Model.destroy({
-      where: {
-        id,
-      },
-    }).then((res, err) => {
-      if (err) throw err;
-      if (res > 0) {
-        return 200;
-      }
-      return (404);
     });
   }
 }

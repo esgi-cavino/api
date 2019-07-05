@@ -2,8 +2,7 @@ import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
-import findOne from '../middleware/CRUD/findOne';
-import deleteOne from '../middleware/CRUD/deleteOne';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
 import { WineType } from '../../models';
 
@@ -18,12 +17,20 @@ wineTypeAuthRouter.get(table, getAll.bind(null, {
   options: {},
 }));
 
-wineTypeAuthRouter.get(`${table}/:id`, findOne.bind(null, WineType));
+wineTypeAuthRouter.get(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: WineType,
+    isToDelete: false,
+  }));
 
 wineTypeAdminRouter.patch(`${table}/:id`, updateOne.bind(null, WineType));
 
 wineTypeAuthRouter.post(`${table}`, create.bind(null, WineType));
 
-wineTypeAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, WineType));
+wineTypeAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: WineType,
+    isToDelete: true,
+  }));
 
 export { wineTypeRouter, wineTypeAuthRouter, wineTypeAdminRouter };

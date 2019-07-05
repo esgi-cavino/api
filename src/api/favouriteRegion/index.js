@@ -2,8 +2,7 @@ import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
 import getAll from '../middleware/CRUDWithOptions/getAll';
-import findOne from '../middleware/CRUD/findOne';
-import deleteOne from '../middleware/CRUD/deleteOne';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
 import deleteByIdAndUserUUID from '../middleware/DeleteLinkTables/deleteByIdAndUserUUID';
 import { FavouriteRegion } from '../../models';
@@ -19,7 +18,11 @@ favouriteRegionAuthRouter.get(table, getAll.bind(null, {
   options: {},
 }));
 
-favouriteRegionAuthRouter.get(`${table}/:id`, findOne.bind(null, FavouriteRegion));
+favouriteRegionAuthRouter.get(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteRegion,
+    isToDelete: false,
+  }));
 
 favouriteRegionAuthRouter.patch(`${table}/:id`, updateOne.bind(null, FavouriteRegion));
 
@@ -27,6 +30,10 @@ favouriteRegionAuthRouter.post(`${table}`, create.bind(null, FavouriteRegion));
 
 favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID.bind(null, FavouriteRegion));
 
-favouriteRegionAdminRouter.delete(`${table}/:id`, deleteOne.bind(null, FavouriteRegion));
+favouriteRegionAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteRegion,
+    isToDelete: true,
+  }));
 
 export { favouriteRegionRouter, favouriteRegionAuthRouter, favouriteRegionAdminRouter };
