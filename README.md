@@ -8,11 +8,11 @@ develop [![Build Status](https://travis-ci.org/esgi-cavino/api.svg?branch=develo
 
 
 
-[![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)](https://esgi-cavino-api.herokuapp.com/api-docs/)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge2)](https://esgi-cavino-api.herokuapp.com/api-docs/)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/f0ac9b0ae64964902535/maintainability)](https://codeclimate.com/github/esgi-cavino/api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f0ac9b0ae64964902535/test_coverage)](https://codeclimate.com/github/esgi-cavino/api/test_coverage)
 
-To update ![](https://online.swagger.io/validator?url=https://esgi-cavino-api.herokuapp.com/docJSON/)
+[![Swagger validation](https://online.swagger.io/validator?url=https://esgi-cavino-api.herokuapp.com/api-docs.json)](https://esgi-cavino-api.herokuapp.com/api-docs/)
 
 See the [API Documentation](https://esgi-cavino-api.herokuapp.com/api-docs/).

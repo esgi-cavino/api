@@ -76,6 +76,9 @@ app.use(passport.initialize());
 app.use('/api', apiRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs.json', (req, res) => {
+  res.sendFile('./api-docs/openapi.json', { root: __dirname });
+});
 
 if (process.env.feed === 'true') {
   feed().then(() => {

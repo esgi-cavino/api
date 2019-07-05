@@ -1,7 +1,7 @@
 {
   "name": "api",
-  "version": "1.0.0",
-  "description": "Create a simple API from tuto :\r https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09",
+  "version": "1.1.0",
+  "description": "API for the Cavino project",
   "main": "index.js",
   "scripts": {
     "start-dev": "./node_modules/.bin/pm2 start pm2.yml",
