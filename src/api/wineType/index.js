@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
-import getAll from '../middleware/CRUD/getAll';
+import getAll from '../middleware/CRUDWithOptions/getAll';
 import findOne from '../middleware/CRUD/findOne';
 import deleteOne from '../middleware/CRUD/deleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
@@ -13,7 +13,10 @@ const wineTypeAdminRouter = Router();
 
 const table = '/wineType';
 
-wineTypeAuthRouter.get(table, getAll.bind(null, WineType));
+wineTypeAuthRouter.get(table, getAll.bind(null, {
+  model: WineType,
+  options: {},
+}));
 
 wineTypeAuthRouter.get(`${table}/:id`, findOne.bind(null, WineType));
 

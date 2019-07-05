@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
-import getAll from '../middleware/CRUD/getAll';
+import getAll from '../middleware/CRUDWithOptions/getAll';
 import findOne from '../middleware/CRUD/findOne';
 import deleteOne from '../middleware/CRUD/deleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
@@ -14,7 +14,10 @@ const cellarAdminRouter = Router();
 
 const table = '/cellar';
 
-cellarAdminRouter.get(table, getAll.bind(null, Cellar));
+cellarAdminRouter.get(table, getAll.bind(null, {
+  model: Cellar,
+  options: {},
+}));
 
 cellarAuthRouter.get(`${table}/:id`, findOne.bind(null, Cellar));
 

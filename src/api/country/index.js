@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import create from '../middleware/CRUD/create';
-import getAll from '../middleware/CRUD/getAll';
+import getAll from '../middleware/CRUDWithOptions/getAll';
 import findOne from '../middleware/CRUD/findOne';
 import deleteOne from '../middleware/CRUD/deleteOne';
 import updateOne from '../middleware/CRUD/updateOne';
@@ -13,7 +13,10 @@ const countryAdminRouter = Router();
 
 const table = '/country';
 
-countryAuthRouter.get(table, getAll.bind(null, Country));
+countryAuthRouter.get(table, getAll.bind(null, {
+  model: Country,
+  options: {},
+}));
 
 countryAuthRouter.get(`${table}/:id`, findOne.bind(null, Country));
 
