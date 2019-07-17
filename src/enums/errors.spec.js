@@ -1,26 +1,21 @@
 import { expect } from 'chai';
 import errors from './errors';
 
+const test = (title, message, code, errorFunction) => {
+  describe(title, () => {
+    it(`should return${code}`, () => {
+      const error = errorFunction;
+
+      expect(error.message).to.equal(message);
+      expect(error.status).to.equal(code);
+    });
+  });
+};
+
 describe('enums > errors', () => {
   it('should export an object', () => {
     expect(errors).to.be.an('object');
   });
-
-  describe('notFound', () => {
-    it('should return an error', () => {
-      const error = errors.notFound();
-
-      expect(error.message).to.equal('Not Found');
-      expect(error.status).to.equal(404);
-    });
-  });
-
-  describe('unauthorized', () => {
-    it('should return an error', () => {
-      const error = errors.unauthorized();
-
-      expect(error.message).to.equal('You must be authenticated');
-      expect(error.status).to.equal(401);
-    });
-  });
+  test('notFound', 'Not Found', 404, errors.notFound());
+  test('unauthorized', 'You must be authenticated', 401, errors.unauthorized());
 });

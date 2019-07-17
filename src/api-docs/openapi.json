@@ -3,7 +3,7 @@
   "info": {
     "title": "ESGI-Cavino API ",
     "description": "Documentation with OpenAPI Specification",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "servers": [
     {
@@ -18,55 +18,51 @@
   "tags": [
     {
       "name": "authentication",
-      "description": "Everything about authentications ✅(Verified June-13-2019_18h20)"
+      "description": "Everything about authentications"
     },
     {
       "name": "user",
-      "description": "Everything about Users ☑️"
+      "description": "Everything about Users"
     },
     {
       "name": "cellar",
-      "description": "Everything about Cellars ✅(Verified June-13-2019_18h05)"
+      "description": "Everything about Cellars"
     },
     {
       "name": "bottle",
-      "description": "Everything about Bottles ✅(Verified June-13-2019_18h15)"
+      "description": "Everything about Bottles"
     },
     {
       "name": "favouriteRegion",
-      "description": "Everything about FavouriteRegions 🆗(Verified June-13-2019_18h30)"
+      "description": "Everything about FavouriteRegions"
     },
     {
       "name": "favouriteWine",
-      "description": "Everything about FavouriteWines 🆗(Verified June-13-2019_18h40)"
-    },
-    {
-      "name": "quantityInCellar",
-      "description": "Everything about QuantityInCellars 🅓🅔🅟🅡🅔🅒🅐🅣🅔🅓 ❎(Verified June-13-2019_18h10)"
+      "description": "Everything about FavouriteWines"
     },
     {
       "name": "positionInCellar",
-      "description": "Everything about PositionInCellars ✅(Verified June-13-2019_19h40)"
+      "description": "Everything about PositionInCellars"
     },
     {
       "name": "region",
-      "description": "Everything about Regions ✅(Verified June-13-2019_18h45)"
+      "description": "Everything about Regions"
     },
     {
       "name": "wineType",
-      "description": "Everything about WineTypes ✅(Verified June-13-2019_18h45)"
+      "description": "Everything about WineTypes"
     },
     {
       "name": "domain",
-      "description": "Everything about Domains ✅(Verified June-13-2019_21h40)"
+      "description": "Everything about Domains"
     },
     {
       "name": "vintage",
-      "description": "Everything about Vintages ✅(Verified June-13-2019_21h45)"
+      "description": "Everything about Vintages"
     },
     {
       "name": "country",
-      "description": "Everything about Countrys ✅(Verified June-13-2019_21h50)"
+      "description": "Everything about Countrys"
     }
   ],
   "paths": {
@@ -1082,237 +1078,6 @@
             "JWT": []
           }
         ]
-      }
-    },
-    "/quantityInCellar": {
-      "get": {
-        "tags": [
-          "quantityInCellar"
-        ],
-        "summary": "Gets all quantityInCellars",
-        "description": "Returns a list containing all quantityInCellars.",
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "The number of items to skip before starting to collect the result set",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The numbers of items to return",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list of QuantityInCellar",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/QuantityInCellar"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT-Admin": []
-          }
-        ],
-        "deprecated": true
-      },
-      "post": {
-        "tags": [
-          "quantityInCellar"
-        ],
-        "summary": "Creates a quantityInCellar",
-        "description": "Creates a quantityInCellar with request body parameters.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "quantity",
-                  "cellarId",
-                  "bottleId"
-                ],
-                "properties": {
-                  "quantity": {
-                    "type": "integer"
-                  },
-                  "cellarId": {
-                    "type": "integer"
-                  },
-                  "bottleId": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "QuantityInCellar created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuantityInCellar"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT-Admin": []
-          }
-        ],
-        "deprecated": true
-      }
-    },
-    "/quantityInCellar/{id}": {
-      "get": {
-        "tags": [
-          "quantityInCellar"
-        ],
-        "summary": "Get one quantityInCellar",
-        "description": "Returns the wanted quantityInCellar.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of the wanted quantityInCellar",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The wanted quantityInCellar",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuantityInCellar"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT-Admin": []
-          }
-        ],
-        "deprecated": true
-      },
-      "patch": {
-        "tags": [
-          "quantityInCellar"
-        ],
-        "summary": "update one quantityInCellar",
-        "description": "Returns the updated quantityInCellar",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of the quantityInCellar to update",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "quantity": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The number of modified objects"
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT-Admin": []
-          }
-        ],
-        "deprecated": true
-      },
-      "delete": {
-        "tags": [
-          "quantityInCellar"
-        ],
-        "summary": "delete one quantityInCellar",
-        "description": "delete a quantityInCellar by id.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of the quantityInCellar to delete",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Request response"
-          },
-          "401": {
-            "description": "Access token is missing or invalid",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "JWT-Admin": []
-          }
-        ],
-        "deprecated": true
       }
     },
     "/positionInCellar": {
@@ -3792,29 +3557,6 @@
           },
           "userUUID": {
             "type": "string"
-          },
-          "createdAt": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "string"
-          }
-        }
-      },
-      "QuantityInCellar": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "quantity": {
-            "type": "integer"
-          },
-          "cellarId": {
-            "type": "integer"
-          },
-          "bottleId": {
-            "type": "integer"
           },
           "createdAt": {
             "type": "string"

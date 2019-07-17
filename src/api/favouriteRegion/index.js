@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import create from './middlewares/create';
-import getAll from './middlewares/getAll';
-import findOne from './middlewares/findOne';
-import deleteOne from './middlewares/deleteOne';
-import updateOne from './middlewares/updateOne';
-import deleteByIdAndUserUUID from './middlewares/deleteByIdAndUserUUID';
+import create from '../middleware/CRUD/create';
+import getAll from '../middleware/CRUDWithOptions/getAll';
+import findOrDeleteOne from '../middleware/CRUD/findOrDeleteOne';
+import updateOne from '../middleware/CRUD/updateOne';
+import deleteByIdAndUserUUID from '../middleware/DeleteLinkTables/deleteByIdAndUserUUID';
+import { FavouriteRegion } from '../../models';
 
 const favouriteRegionRouter = Router();
 const favouriteRegionAuthRouter = Router();
@@ -13,16 +13,27 @@ const favouriteRegionAdminRouter = Router();
 
 const table = '/favouriteRegion';
 
-favouriteRegionAuthRouter.get(table, getAll);
+favouriteRegionAuthRouter.get(table, getAll.bind(null, {
+  model: FavouriteRegion,
+  options: {},
+}));
 
-favouriteRegionAuthRouter.get(`${table}/:id`, findOne);
+favouriteRegionAuthRouter.get(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteRegion,
+    isToDelete: false,
+  }));
 
-favouriteRegionAuthRouter.patch(`${table}/:id`, updateOne);
+favouriteRegionAuthRouter.patch(`${table}/:id`, updateOne.bind(null, FavouriteRegion));
 
-favouriteRegionAuthRouter.post(`${table}`, create);
+favouriteRegionAuthRouter.post(`${table}`, create.bind(null, FavouriteRegion));
 
-favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID);
+favouriteRegionAuthRouter.delete(`${table}/:id/:userUUID`, deleteByIdAndUserUUID.bind(null, FavouriteRegion));
 
-favouriteRegionAdminRouter.delete(`${table}/:id`, deleteOne);
+favouriteRegionAdminRouter.delete(`${table}/:id`,
+  findOrDeleteOne.bind(null, {
+    model: FavouriteRegion,
+    isToDelete: true,
+  }));
 
 export { favouriteRegionRouter, favouriteRegionAuthRouter, favouriteRegionAdminRouter };
