@@ -19,11 +19,4 @@ cache:
   directories:
     - node_modules
 
-deploy:
-  provider: heroku
-  api_key:
-    secure: $API_KEY
-  app: esgi-cavino-api
-  on:
-    repo: esgi-cavino/api
   skip_cleanup: true
