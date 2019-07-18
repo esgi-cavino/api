@@ -11,3 +11,5 @@ Develop [![Build Status](https://travis-ci.org/esgi-cavino/api.svg?branch=develo
 
 
 See the [API Documentation](https://esgi-cavino-api.herokuapp.com/api-docs/).
+
+![Schema_de_bdd](https://raw.githubusercontent.com/esgi-cavino/api/master/Schema_bdd.png)
